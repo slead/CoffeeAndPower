@@ -1,17 +1,18 @@
 class CafesController < ApplicationController
 
 	before_action :find_cafe, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
 	def index
 		@cafes = Cafe.all.order("CREATED_AT")
 	end
 
 	def new
-		@cafe = Cafe.new
+		@cafe = current_user.cafes.build
 	end
 
 	def create
-		@cafe = Cafe.new(cafe_params)
+		@cafe = current_user.cafes.build(cafe_params)
 		if @cafe.save
 			redirect_to @cafe
 		else

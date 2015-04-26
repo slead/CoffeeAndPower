@@ -13,4 +13,4 @@ gem 'spring',        group: :development
 gem 'haml', '~> 4.0.6'
 gem 'simple_form', '~> 3.1.0'
 gem 'devise', '~> 3.4.1'
-
+gem 'acts_as_votable', '~> 0.10.0'

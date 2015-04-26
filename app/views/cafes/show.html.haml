@@ -1,6 +1,8 @@
 %h1= @cafe.name
 %p= @cafe.address
 
-%p= link_to "Edit", edit_cafe_path
-%p= link_to "Delete", cafe_path(@cafe), method: :delete, data: {confirm: "Are you sure?"}
+- if @cafe.user == current_user
+  = link_to "Edit", edit_cafe_path(@cafe), class: "data"
+  = link_to "Delete", cafe_path(@cafe), method: :delete, data: { confirm: "Are you sure?"}, class: "data"
+
 %p= link_to "Home", root_path
