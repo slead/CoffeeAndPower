@@ -1,6 +1,6 @@
 class CafesController < ApplicationController
 
-	before_action :find_cafe, only: [:show, :edit, :update, :destroy]
+	before_action :find_cafe, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, except: [:index, :show]
 
 	def index
@@ -38,6 +38,16 @@ class CafesController < ApplicationController
 			@cafe.destroy
 			redirect_to root_path
 	end
+
+	def upvote
+    @cafe.upvote_by current_user
+    redirect_to :back
+  end
+  
+  def downvote
+    @cafe.downvote_by current_user
+    redirect_to :back  
+  end
 
 	private
 

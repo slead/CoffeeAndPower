@@ -6,6 +6,13 @@
   = time_ago_in_words(@cafe.created_at)
   ago
 
+  = link_to like_cafe_path(@cafe), method: :get, class: "data" do
+    %i.fa.fa-thumbs-o-up
+  = pluralize(@cafe.get_upvotes.size, "like")
+  = link_to dislike_cafe_path(@cafe), method: :get, class: "data" do
+    %i.fa.fa-thumbs-o-down
+  = pluralize(@cafe.get_downvotes.size, "disike")
+
 - if @cafe.user == current_user
   = link_to "Edit", edit_cafe_path(@cafe), class: "data"
   = link_to "Delete", cafe_path(@cafe), method: :delete, data: { confirm: "Are you sure?"}, class: "data"
