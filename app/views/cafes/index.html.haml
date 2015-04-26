@@ -1,0 +1,7 @@
+%h1 Cafes
+
+- @cafes.each do |cafe|
+	%p= link_to cafe.name, cafe
+	%p= cafe.address
+
+%p= link_to "Add a new cafe", new_cafe_path

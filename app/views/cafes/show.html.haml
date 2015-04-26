@@ -1,0 +1,6 @@
+%h1= @cafe.name
+%p= @cafe.address
+
+%p= link_to "Edit", edit_cafe_path
+%p= link_to "Delete", cafe_path(@cafe), method: :delete, data: {confirm: "Are you sure?"}
+%p= link_to "Home", root_path
