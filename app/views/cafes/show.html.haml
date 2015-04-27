@@ -1,20 +1,25 @@
-%h1= @cafe.name
-%p= @cafe.address
-%p.user
-  Added by
-  = @cafe.user.name
-  = time_ago_in_words(@cafe.created_at)
-  ago
+.row
+  .col-md-8
+    %h1= @cafe.name
+    %p= @cafe.address
+    %p.user
+      Added by
+      = @cafe.user.name
+      = time_ago_in_words(@cafe.created_at)
+      ago
 
-  = link_to like_cafe_path(@cafe), method: :get, class: "data" do
-    %i.fa.fa-thumbs-o-up
-  = pluralize(@cafe.get_upvotes.size, "like")
-  = link_to dislike_cafe_path(@cafe), method: :get, class: "data" do
-    %i.fa.fa-thumbs-o-down
-  = pluralize(@cafe.get_downvotes.size, "disike")
+      = link_to like_cafe_path(@cafe), method: :get, class: "data" do
+        %i.fa.fa-thumbs-o-up
+      = pluralize(@cafe.get_upvotes.size, "like")
+      = link_to dislike_cafe_path(@cafe), method: :get, class: "data" do
+        %i.fa.fa-thumbs-o-down
+      = pluralize(@cafe.get_downvotes.size, "disike")
 
-- if @cafe.user == current_user
-  = link_to "Edit", edit_cafe_path(@cafe), class: "data"
-  = link_to "Delete", cafe_path(@cafe), method: :delete, data: { confirm: "Are you sure?"}, class: "data"
+    - if @cafe.user == current_user
+      = link_to "Edit", edit_cafe_path(@cafe), class: "data"
+      = link_to "Delete", cafe_path(@cafe), method: :delete, data: { confirm: "Are you sure?"}, class: "data"
 
-%p= link_to "Home", root_path
+  .col-md-4
+    %p Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna.
+
+    %p Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Sed posuere consectetur est at lobortis. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras mattis consectetur purus sit amet fermentum. Nulla vitae elit libero, a pharetra augue.
