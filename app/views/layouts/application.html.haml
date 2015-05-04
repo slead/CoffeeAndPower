@@ -23,7 +23,6 @@
           %span.icon-bar
           %span.icon-bar
         = link_to "Coffee and Power", root_path, {class:"navbar-brand page-scroll"}
-
       %ul.nav.navbar-top-links.navbar-right
         %li.dropdown
           %a.dropdown-toggle{data: {toggle:"dropdown"}}
@@ -36,7 +35,18 @@
         - else
           = link_to "Sign In", new_user_session_path
           = link_to "Sign Up", new_user_registration_path, class: "button"
+          .user
+            - if user_signed_in?
+              = link_to current_user.name, edit_user_registration_path
+              = link_to 'logout', destroy_user_session_path, method: :delete
+              = link_to "Add a new cafe", new_cafe_path, class: "button"
+            - else
+              = link_to "Sign In", new_user_session_path
+              = link_to "Sign Up", new_user_registration_path, class: "button"
 
+          - else
+            = link_to "Sign In", new_user_session_path
+            = link_to "Sign Up", new_user_registration_path, class: "button"
   %header
     .container
       .intro-text
@@ -48,7 +58,3 @@
 
   .container    
     =yield
-
-
-  
-</ul>
