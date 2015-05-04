@@ -20,6 +20,7 @@
         .wrapper.clearfix
           #logo= link_to "Coffee and Power", root_path
 
+<<<<<<< Updated upstream
           .user
             - if user_signed_in?
               = link_to current_user.name, edit_user_registration_path
@@ -28,10 +29,35 @@
             - else
               = link_to "Sign In", new_user_session_path
               = link_to "Sign Up", new_user_registration_path, class: "button"
+=======
+        .user
+          - if user_signed_in?
+            / = link_to current_user.name, edit_user_registration_path
+            / = link_to 'logout', destroy_user_session_path, method: :delete
+            = link_to "Add a new cafe", new_cafe_path, class: "button"
+            %ul.nav.navbar-top-links.navbar-right
+              %li.dropdown
+                %a.btn.btn-navbar{:data => {:toggle => 'dropdown'}}
+                  %i.fa.fa-user.fa-fw
+                %ul.dropdown-menu.dropdown-user
+                  %li
+                    %i.fa.fa-user.fa-fw
+                      User Profile
+                  %li
+                    %i.fa.fa-gear.fa-fw
+                  %li.divider
+                  %li
+                    %a
+                      %i.fa-fa-sign-out.fa-fw
+          - else
+            = link_to "Sign In", new_user_session_path
+            = link_to "Sign Up", new_user_registration_path, class: "button"
+>>>>>>> Stashed changes
+
 
   .container.notifications
     %p.notice= notice
     %p.alert= alert
 
   .container    
-    =yield
+    = yield
