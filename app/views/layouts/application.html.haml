@@ -35,14 +35,9 @@
               = link_to "Sign Up", new_user_registration_path, class: "button"
         - if user_signed_in?
           = link_to "Add a new cafe", new_cafe_path, class: "button"
-    %header
-      .container
-        .intro-text
-          .intro-lead-in Welcome to Coffee and Power
-          .intro-heading Lorem ipsum dolor sit amet
+    
     .container.notifications
       %p.notice= notice
       %p.alert= alert
 
-    .container    
-      =yield
+    =yield
