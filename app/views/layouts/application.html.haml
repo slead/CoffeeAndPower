@@ -1,60 +1,48 @@
 !!!
 %html
-%head
-  %title Coffee And Power
-  = stylesheet_link_tag    'application', media: 'all'
-  = javascript_include_tag 'application'
-  = csrf_meta_tags
-  %link{rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css"}
-  %link{rel: "stylesheet", href: "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"}
-  %link{rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Montserrat:400,700"}
-  %link{rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Kaushan+Script"}
-  %link{rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"}
-  %link{rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"}
-  %link{rel: "stylesheet", href: "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"}
+  %head
+    %title Coffee and Power
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    %link{rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css"}
+    %link{rel: "stylesheet", href: "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"}
+    %link{rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Montserrat:400,700"}
+    %link{rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Kaushan+Script"}
+    %link{rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"}
+    %link{rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"}
+    %link{rel: "stylesheet", href: "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"}
 
-%body#page-top.index
-  %nav.navbar.navbar-default.navbar-fixed-top
-    .container
-      .navbar-header.page-scroll
-        .button.navbar-toggle{type: "button", data: {toggle: "collapse", target: ".nav-collapse"}}
-          %span.sr-only Toggle navigation
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-        = link_to "Coffee and Power", root_path, {class:"navbar-brand page-scroll"}
-      %ul.nav.navbar-top-links.navbar-right
-        %li.dropdown
-          %a.dropdown-toggle{data: {toggle:"dropdown"}}
-            %i.fa.fa-user.fa-fw.grey
-      .user
-        - if user_signed_in?
-          = link_to current_user.name, edit_user_registration_path
-          = link_to 'logout', destroy_user_session_path, method: :delete
-          = link_to "Add a new cafe", new_cafe_path, class: "button"
-        - else
-          = link_to "Sign In", new_user_session_path
-          = link_to "Sign Up", new_user_registration_path, class: "button"
-          .user
+  %body#page-top.index
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header.page-scroll
+          .button.navbar-toggle{type: "button", data: {toggle: "collapse", target: ".nav-collapse"}}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to "Coffee and Power", root_path, {class:"navbar-brand page-scroll"}
+        %ul.nav.navbar-top-links.navbar-right
+          %li.dropdown
+            %a.dropdown-toggle{data: {toggle:"dropdown"}}
+              %i.fa.fa-user.fa-fw.grey
             - if user_signed_in?
               = link_to current_user.name, edit_user_registration_path
               = link_to 'logout', destroy_user_session_path, method: :delete
-              = link_to "Add a new cafe", new_cafe_path, class: "button"
             - else
               = link_to "Sign In", new_user_session_path
               = link_to "Sign Up", new_user_registration_path, class: "button"
+        - if user_signed_in?
+          = link_to "Add a new cafe", new_cafe_path, class: "button"
+    %header
+      .container
+        .intro-text
+          .intro-lead-in Welcome to Coffee and Power
+          .intro-heading Lorem ipsum dolor sit amet
+    .container.notifications
+      %p.notice= notice
+      %p.alert= alert
 
-          - else
-            = link_to "Sign In", new_user_session_path
-            = link_to "Sign Up", new_user_registration_path, class: "button"
-  %header
-    .container
-      .intro-text
-        .intro-lead-in Welcome to Coffee and Power
-        .intro-heading Lorem ipsum dolor sit amet
-  .container.notifications
-    %p.notice= notice
-    %p.alert= alert
-
-  .container    
-    =yield
+    .container    
+      =yield
