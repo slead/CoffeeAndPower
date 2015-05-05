@@ -1,3 +1,13 @@
 .grey {
   color: grey;
 }
+
+.white {
+  color: #fff;
+}
+
+@media(min-width:768px) {
+  .top-50{
+    margin-top: 50px;
+  }
+}

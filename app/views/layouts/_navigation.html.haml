@@ -1,4 +1,4 @@
-%nav.navbar.navbar-default.navbar-fixed-top
+%nav.navbar.navbar-default
   .container
     .navbar-header.page-scroll
       .button.navbar-toggle{type: "button", data: {toggle: "collapse", target: ".nav-collapse"}}
@@ -10,13 +10,13 @@
     .collapse.navbar-collapse#bs-example-navbar-collapse-1
       %ul.nav.navbar-right.navbar-nav
         %li
-          %a.page-scroll Find a cafe
+          = link_to "Find a cafe", root_path, class: "button"
         %li
           = link_to "Add a new cafe", new_cafe_path, class: "button"
         %li.dropdown
           %a.dropdown-toggle{data: {toggle:"dropdown"}}
-            %i.fa.fa-user.fa-fw.grey
-            %i.fa.fa-caret-down.fa-fw.grey
+            %i.fa.fa-user.fa-fw.white
+            %i.fa.fa-caret-down.fa-fw.white
           %ul.dropdown-menu.dropdown-user
             - if user_signed_in?
               %li
