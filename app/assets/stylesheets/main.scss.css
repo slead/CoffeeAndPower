@@ -1,5 +1,5 @@
 .grey {
-  color: grey;
+  color: #727272;
 }
 
 .white {
@@ -9,5 +9,8 @@
 @media(min-width:768px) {
   .top-50{
     margin-top: 50px;
+  }
+  .top-100{
+    margin-top: 100px;
   }
 }

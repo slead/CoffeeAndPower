@@ -15,8 +15,8 @@
           = link_to "Add a new cafe", new_cafe_path, class: "button"
         %li.dropdown
           %a.dropdown-toggle{data: {toggle:"dropdown"}}
-            %i.fa.fa-user.fa-fw.white
-            %i.fa.fa-caret-down.fa-fw.white
+            %i.fa.fa-user.fa-fw.grey
+            %i.fa.fa-caret-down.fa-fw.grey
           %ul.dropdown-menu.dropdown-user
             - if user_signed_in?
               %li
