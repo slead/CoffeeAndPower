@@ -1,0 +1,30 @@
+%nav.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header.page-scroll
+      .button.navbar-toggle{type: "button", data: {toggle: "collapse", target: ".nav-collapse"}}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to "Coffee and Power", root_path, {class:"navbar-brand page-scroll"}
+    .collapse.navbar-collapse#bs-example-navbar-collapse-1
+      %ul.nav.navbar-right.navbar-nav
+        %li
+          %a.page-scroll Find a cafe
+        %li
+          = link_to "Add a new cafe", new_cafe_path, class: "button"
+        %li.dropdown
+          %a.dropdown-toggle{data: {toggle:"dropdown"}}
+            %i.fa.fa-user.fa-fw.grey
+            %i.fa.fa-caret-down.fa-fw.grey
+          %ul.dropdown-menu.dropdown-user
+            - if user_signed_in?
+              %li
+                = link_to current_user.name, edit_user_registration_path
+              %li
+                = link_to 'logout', destroy_user_session_path, method: :delete
+            - else
+              %li
+                = link_to "Sign In", new_user_session_path
+              %li
+                = link_to "Sign Up", new_user_registration_path, class: "button"

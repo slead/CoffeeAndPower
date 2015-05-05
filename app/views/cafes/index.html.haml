@@ -3,11 +3,14 @@
     .intro-text
       .intro-lead-in Welcome to Coffee and Power
       .intro-heading Lorem ipsum dolor sit amet
+
+.container.notifications
+  %p.notice= notice
+  %p.alert= alert
+
 .container  
   .row
-
     %h1 Cafes
-
     #cafes
       - @cafes.each do |cafe|
         .col-md-4.cafe

@@ -14,30 +14,6 @@
     %link{rel: "stylesheet", href: "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"}
 
   %body#page-top.index
-    %nav.navbar.navbar-default.navbar-fixed-top
-      .container
-        .navbar-header.page-scroll
-          .button.navbar-toggle{type: "button", data: {toggle: "collapse", target: ".nav-collapse"}}
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to "Coffee and Power", root_path, {class:"navbar-brand page-scroll"}
-        %ul.nav.navbar-top-links.navbar-right
-          %li.dropdown
-            %a.dropdown-toggle{data: {toggle:"dropdown"}}
-              %i.fa.fa-user.fa-fw.grey
-            - if user_signed_in?
-              = link_to current_user.name, edit_user_registration_path
-              = link_to 'logout', destroy_user_session_path, method: :delete
-            - else
-              = link_to "Sign In", new_user_session_path
-              = link_to "Sign Up", new_user_registration_path, class: "button"
-        - if user_signed_in?
-          = link_to "Add a new cafe", new_cafe_path, class: "button"
-    
-    .container.notifications
-      %p.notice= notice
-      %p.alert= alert
+    = render 'layouts/navigation'
 
     =yield
