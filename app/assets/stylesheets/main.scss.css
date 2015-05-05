@@ -11,6 +11,23 @@
   cursor: pointer;
 }
 
+#notice_wrapper, #alert_wrapper {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  background: rgba(135,216,211,0.85);
+}
+
+#notice_wrapper p, #alert_wrapper p {
+  text-align: center;
+  margin: 0;
+  font-size: 1.25rem;
+  color: #ffffff;
+  letter-spacing: 1px;
+  padding: 2.5rem 0;
+}
+
 @media(min-width:768px) {
   .top-50{
     margin-top: 50px;

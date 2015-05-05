@@ -4,9 +4,13 @@
       .intro-lead-in Welcome to Coffee and Power
       .intro-heading Lorem ipsum dolor sit amet
 
-.container.notifications
-  %p.notice= notice
-  %p.alert= alert
+.notifications
+  - if notice
+    #notice_wrapper
+      %p.notice= notice
+  - elsif alert
+    #alert_wrapper
+      %p.alert= alert
 
 .container  
   .row
