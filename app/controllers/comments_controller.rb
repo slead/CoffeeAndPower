@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
     def create
       @cafe = Cafe.find(params[:cafe_id])
-      @comment = Comment.create(params[:comment].permit(:comment))
+      @comment = @cafe.comments.create(params[:comment].permit(:comment))
 
       if @comment.save
         redirect_to cafe_path(@cafe)
@@ -9,5 +9,4 @@ class CommentsController < ApplicationController
         render 'new'
       end
     end
-
 end
