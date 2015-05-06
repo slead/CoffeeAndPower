@@ -23,17 +23,14 @@
       - if @cafe.user == current_user
         = link_to "Edit", edit_cafe_path(@cafe), class: "data"
         = link_to "Delete", cafe_path(@cafe), method: :delete, data: { confirm: "Are you sure?"}, class: "data"
-    #comments
-      - @comments.each do |comment|
-        .comment
-          %p.comment_content= comment.content
-          %p.comment_username
-            Shared by
-            = comment.user.name
-            = time_ago_in_words(comment.created_at)
-            ago
-      
-      = render 'comments/form'
+
+      #comments
+        %i.fa.fa-comments-o
+          = pluralize(@cafe.comments.count, "comment")  
+        = render @cafe.comments
+
+        #h3 Reply to thread
+        = render 'comments/form'
 
     .col-md-4
       %p Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna.
