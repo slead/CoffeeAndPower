@@ -21,15 +21,12 @@
             .name
               %h2= link_to cafe.name, cafe
             .data.clearfix
-            %p.username
-              Shared by
-              = cafe.user.name
-              = time_ago_in_words(cafe.created_at)
-              ago
+            %p.summary
+              = truncate(cafe.description, length: 200)
             %p.buttons
-              / %span
-              /   %i.fa.fa-comments-o
-              /     = cafe.comments.count
+              %span
+                %i.fa.fa-comments-o
+                  = cafe.comments.count
               %span
                 %i.fa.fa-thumbs-o-up
                   = cafe.get_likes.size

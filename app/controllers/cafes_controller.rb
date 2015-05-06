@@ -53,7 +53,7 @@ class CafesController < ApplicationController
 	private
 
 	def cafe_params
-		params.require(:cafe).permit(:name, :address)
+		params.require(:cafe).permit(:name, :address, :description)
 	end
 
 	def find_cafe
