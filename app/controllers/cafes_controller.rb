@@ -20,7 +20,8 @@ class CafesController < ApplicationController
 		end
 	end
 
-	def show	
+	def show
+		@comments = Comment.where(cafe_id: @cafe)
 	end
 
 	def edit

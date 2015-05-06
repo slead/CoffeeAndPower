@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426111733) do
+ActiveRecord::Schema.define(version: 20150506064301) do
 
   create_table "cafes", force: true do |t|
     t.string   "name"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20150426111733) do
     t.datetime "updated_at"
     t.integer  "user_id"
   end
+
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "cafe_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["cafe_id"], name: "index_comments_on_cafe_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
