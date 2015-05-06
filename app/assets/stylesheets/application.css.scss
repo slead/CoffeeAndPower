@@ -1,4 +1,8 @@
-.grey {
+/*
+ *= require_self
+ */
+
+ .grey {
   color: #727272;
 }
 
@@ -17,15 +21,25 @@
   width: 100%;
   z-index: 999;
   background: rgba(135,216,211,0.85);
+  p {
+    text-align: center;
+    margin: 0;
+    font-size: 1.25rem;
+    color: #ffffff;
+    letter-spacing: 1px;
+    padding: 2.5rem 0;
+  }
 }
 
-#notice_wrapper p, #alert_wrapper p {
-  text-align: center;
-  margin: 0;
-  font-size: 1.25rem;
-  color: #ffffff;
-  letter-spacing: 1px;
-  padding: 2.5rem 0;
+.name {
+  h2 {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}
+
+p.summary{
+  color: #727272;
 }
 
 @media(min-width:768px) {
@@ -36,3 +50,7 @@
     margin-top: 100px;
   }
 }
+
+@import 'bootstrap.css';
+@import 'agency.css';
+@import 'comments.css.scss'

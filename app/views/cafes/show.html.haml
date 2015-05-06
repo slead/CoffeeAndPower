@@ -5,9 +5,13 @@
 .container.top-50
   .row
     .col-md-8
-      %h1= @cafe.name
-      %p.address= @cafe.address
-      %p.description= @cafe.description
+      .name
+        %h2= @cafe.name
+      .address
+        %h4= @cafe.address
+      .data.clearfix
+      .wrapper
+        %p.description= @cafe.description
       
       #comments
         %h4.comment_count= pluralize(@cafe.comments.count, "Comment")

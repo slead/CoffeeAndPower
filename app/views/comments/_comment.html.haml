@@ -1,9 +1,12 @@
-.comment
+.comment_content
+  - if comment.user == current_user
+    %span.close
+      %i.fa.fa-times
+        = link_to "Delete", [comment.cafe, comment], method: :delete, data: {confirm: "are you sure?"}
   %p= comment.comment
   %p.comment_username
     Shared by
     = comment.user.name
     = time_ago_in_words(comment.created_at)
     ago
-  - if comment.user == current_user
-    = link_to "Delete", [comment.cafe, comment], method: :delete, data: {confirm: "are you sure?"}
+%hr

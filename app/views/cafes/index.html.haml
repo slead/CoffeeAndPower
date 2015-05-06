@@ -16,20 +16,21 @@
   .row
     #cafes
       - @cafes.each do |cafe|
-        .col-md-4.cafe
-          .cafe_content
-            .name
-              %h2= link_to cafe.name, cafe
-            .data.clearfix
-            %p.summary
-              = truncate(cafe.description, length: 200)
-            %p.buttons
-              %span
-                %i.fa.fa-comments-o
-                  = cafe.comments.count
-              %span
-                %i.fa.fa-thumbs-o-up
-                  = cafe.get_likes.size
-              %span
-                %i.fa.fa-thumbs-o-down
-                  = cafe.get_dislikes.size
+        .col-md-4.cafe_content
+          .name
+            %h2= link_to cafe.name, cafe
+          .address
+            %h4= cafe.address
+          .data.clearfix
+          %p.summary
+            = truncate(cafe.description, length: 200)
+          %p.buttons
+            %span
+              %i.fa.fa-comments-o
+                = cafe.comments.count
+            %span
+              %i.fa.fa-thumbs-o-up
+                = cafe.get_likes.size
+            %span
+              %i.fa.fa-thumbs-o-down
+                = cafe.get_dislikes.size
