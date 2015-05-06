@@ -1,8 +1,8 @@
 .comment_content
   - if comment.user == current_user
-    %span.close
-      %i.fa.fa-times
-        = link_to "Delete", [comment.cafe, comment], method: :delete, data: {confirm: "are you sure?"}
+    %span.delete
+      = link_to [comment.cafe, comment], method: :delete, data: {confirm: "are you sure?"} do
+        %i.fa.fa-times
   %p= comment.comment
   %p.comment_username
     Shared by
