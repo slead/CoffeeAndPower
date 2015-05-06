@@ -26,14 +26,7 @@
 
       #comments
         %h2.comment_count= pluralize(@cafe.comments.count, "Comment")
-        - @comments.each do |comment|
-          .comment
-            %p.comment_content= comment.comment
-            %p.comment_username
-              Shared by
-              = comment.user.name
-              = time_ago_in_words(comment.created_at)
-              ago
+        = render @cafe.comments
 
         #h3 Reply to thread
         = render "comments/form"
