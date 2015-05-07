@@ -43,6 +43,9 @@ class CafesController < ApplicationController
 			"&markers=icon:http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%7C" +
 			@cafe.latitude.to_s + "," + @cafe.longitude.to_s
 
+		# Generate a URL for a live Google Map search
+		@google_map_link = "https://www.google.com.au/maps/search/" + @cafe.address
+		
 		# Find the cafes near this one and add them to the map
 		@nearbys = []
 		@cafe.nearbys(1).each do |nearby_cafe|

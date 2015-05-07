@@ -4,7 +4,9 @@
       .name
         %h2= truncate(@cafe.name, length: 35)
       .address
-        %h4= truncate(@cafe.address, length: 80)
+        = link_to @google_map_link, target: "_blank" do
+          %i.fa.fa-map-marker
+          = truncate(@cafe.address, length: 100)
       .edit
         - if @cafe.user == current_user
           = link_to edit_cafe_path(@cafe), class: "data" do
