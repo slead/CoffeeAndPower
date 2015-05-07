@@ -1,4 +1,8 @@
 class CafesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:notice] = 'Sorry, that cafe does not exist'
+    redirect_to action: :index
+  end
 
 	before_action :find_cafe, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, except: [:index, :show]
