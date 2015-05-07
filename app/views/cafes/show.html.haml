@@ -42,5 +42,5 @@
         .nearbys
           %h4 Nearby cafes
           %ul
-          - @nearbys.each do |nearby_cafe|
-            %li= link_to(truncate(nearby_cafe.name, length: 20), nearby_cafe) + " " + (@cafe.distance_from(nearby_cafe) * 1609.344).round().to_s + " m away"
+            - @nearbys.each do |nearby_cafe|
+              %li= link_to(truncate(nearby_cafe.name, length: 35), nearby_cafe) + " " + (@cafe.distance_from(nearby_cafe) * 1609.344).round().to_s + " m away"

@@ -20,6 +20,11 @@
   cursor: pointer;
 }
 
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
 #notice_wrapper, #alert_wrapper {
   position: absolute;
   top: 0;
