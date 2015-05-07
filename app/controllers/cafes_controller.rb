@@ -21,6 +21,11 @@ class CafesController < ApplicationController
 			flash[:notice] = "Cafe #{@cafe.name} added successfully."
 			redirect_to @cafe
 		else
+      errors = []
+      @cafe.errors.full_messages.each do |msg|
+        errors << msg
+      end
+      flash.now[:error] = errors
 			render 'new'
 		end
 	end
