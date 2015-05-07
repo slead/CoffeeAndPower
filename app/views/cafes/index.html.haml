@@ -9,9 +9,9 @@
       - @cafes.each do |cafe|
         .col-md-4.cafe_content
           .name
-            %h2= link_to cafe.name, cafe
+            %h2= link_to truncate(cafe.name, length: 18), cafe
           .address
-            %h4= cafe.address
+            %h4= truncate(cafe.address, lenth: 80)
           .data.clearfix
           %p.summary
             = truncate(cafe.description, length: 200)

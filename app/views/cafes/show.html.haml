@@ -2,9 +2,9 @@
   .row
     .col-md-8
       .name
-        %h2= @cafe.name
+        %h2= truncate(@cafe.name, length: 35)
       .address
-        %h4= @cafe.address
+        %h4= truncate(@cafe.address, length: 80)
       .edit
         - if @cafe.user == current_user
           = link_to edit_cafe_path(@cafe), class: "data" do
