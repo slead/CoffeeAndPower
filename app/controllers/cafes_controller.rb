@@ -41,7 +41,9 @@ class CafesController < ApplicationController
 			@cafe.latitude.to_s + "," + @cafe.longitude.to_s
 
 		# Find the cafes near this one and add them to the map
+		@nearbys = []
 		@cafe.nearbys.each do |nearby_cafe|
+			@nearbys << nearby_cafe
 			@map_image += "&markers=olor:blue%7C" + nearby_cafe.latitude.to_s + "," + nearby_cafe.longitude.to_s
 		end
 

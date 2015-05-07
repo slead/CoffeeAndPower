@@ -38,3 +38,8 @@
         = pluralize(@cafe.get_downvotes.size, "disike")
       .map
         = image_tag @map_image
+      .nearbys
+        %h4 Nearby cafes
+        %ul
+        - @nearbys.each do |nearby_cafe|
+          %li= link_to(truncate(nearby_cafe.name, length: 20), nearby_cafe)
