@@ -10,6 +10,11 @@
   color: #fff;
 }
 
+.error {
+  color: red;
+  font-weight: bold;
+}
+
 .navbar-default .nav li a {
   color: #727272;
   cursor: pointer;
@@ -41,7 +46,12 @@
   form{
     label{
       margin-top: 10px;
-    }    
+    }
+    .error {
+      right: 40px;
+      position: absolute;
+      margin-top: -25px;
+    }   
   }
 }
 
