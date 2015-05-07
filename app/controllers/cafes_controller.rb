@@ -18,6 +18,7 @@ class CafesController < ApplicationController
 	def create
 		@cafe = current_user.cafes.build(cafe_params)
 		if @cafe.save
+			flash[:notice] = "Cafe #{@cafe.name} added successfully."
 			redirect_to @cafe
 		else
 			render 'new'
@@ -41,6 +42,7 @@ class CafesController < ApplicationController
 
 	def destroy
 			@cafe.destroy
+			flash[:notice] = "Cafe #{@cafe.name} deleted successfully."
 			redirect_to root_path
 	end
 

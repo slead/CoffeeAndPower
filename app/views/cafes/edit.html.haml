@@ -1,6 +1,10 @@
-.container.notifications.top-50
-  %p.notice= notice
-  %p.alert= alert
+.notifications
+  - if notice
+    #notice_wrapper
+      %p.notice= notice
+  - elsif alert
+    #alert_wrapper
+      %p.alert= alert
 
 .container.top-50
   .row 
