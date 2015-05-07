@@ -15,4 +15,12 @@
   %body#page-top.index
     = render 'layouts/navigation'
 
+    .notifications
+      - if notice
+        #notice_wrapper
+          %p.notice= notice
+      - elsif alert
+        #alert_wrapper
+          %p.alert= alert
+
     =yield
