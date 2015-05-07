@@ -9,6 +9,13 @@
         %h2= @cafe.name
       .address
         %h4= @cafe.address
+      .edit
+        - if @cafe.user == current_user
+          = link_to edit_cafe_path(@cafe), class: "data" do
+            %i.fa.fa-pencil-square-o
+
+          = link_to cafe_path(@cafe), method: :delete, data: {confirm: "Are you sure you want to delete this cafe?"} do
+            %i.fa.fa-times
       .data.clearfix
       .wrapper
         %p.description= @cafe.description
@@ -33,7 +40,3 @@
         = link_to dislike_cafe_path(@cafe), method: :get, class: "data" do
           %i.fa.fa-thumbs-o-down
         = pluralize(@cafe.get_downvotes.size, "disike")
-      .edit
-      - if @cafe.user == current_user
-        = link_to "Edit", edit_cafe_path(@cafe), class: "data"
-        = link_to "Delete", cafe_path(@cafe), method: :delete, data: { confirm: "Are you sure?"}, class: "data"

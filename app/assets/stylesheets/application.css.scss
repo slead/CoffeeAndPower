@@ -31,10 +31,25 @@
   }
 }
 
+.panel{
+  border-color: #bce8f1;
+  .panel-heading {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+  }
+}
+
 .name {
-  h2 {
-    font-weight: 700;
-    text-transform: uppercase;
+    h2 {
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+.cafe_content {
+  .social {
+    text-align: right;
   }
 }
 

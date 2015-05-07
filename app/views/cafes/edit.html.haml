@@ -5,5 +5,8 @@
 .container.top-50
   .row 
     .col-md-8
-      %h1 Edit cafe
-      = render 'form'
+      .panel
+        .panel-heading Edit cafe
+        .panel-body
+          = render 'form'
+      = link_to "Cancel", cafe_path,  class: "btn btn-default"

@@ -1,5 +1,7 @@
-= simple_form_for @cafe do |f|
-  =f.input :name
-  =f.input :address
-  =f.input :description
-  =f.submit
+= simple_form_for(@cafe, html: { class: 'form' })  do |f|
+  .form-group
+    =f.input :name,  input_html: { class: 'form-control' }, placeholder: "Enter the cafe's name"
+    =f.input :address, input_html: { class: 'form-control' }, placeholder: "Enter the address"
+  .form-group
+    =f.input :description, input_html: { class: 'form-control', rows: 15 }, placeholder: 'Enter a description about the cafe'
+  =f.submit class: "btn btn-warning"

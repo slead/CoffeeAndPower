@@ -24,10 +24,7 @@
           .data.clearfix
           %p.summary
             = truncate(cafe.description, length: 200)
-          %p.buttons
-            %span
-              %i.fa.fa-comments-o
-                = cafe.comments.count
+          %p.social
             %span
               %i.fa.fa-thumbs-o-up
                 = cafe.get_likes.size
