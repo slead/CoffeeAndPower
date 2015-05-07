@@ -36,3 +36,5 @@
         = link_to dislike_cafe_path(@cafe), method: :get, class: "data" do
           %i.fa.fa-thumbs-o-down
         = pluralize(@cafe.get_downvotes.size, "disike")
+      .map
+        = image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=500x500&center=" + @cafe.latitude.to_s + "," + @cafe.longitude.to_s + "&markers=color:blue|label:S|" + @cafe.latitude.to_s + "," + @cafe.longitude.to_s
