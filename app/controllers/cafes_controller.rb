@@ -19,7 +19,10 @@ class CafesController < ApplicationController
 		@cafe = current_user.cafes.build(cafe_params)
 		@cafe.username = current_user.name
 		if @cafe.save
-			flash[:notice] = "Cafe #{@cafe.name} added successfully."
+			# flash[:notice] = "Cafe #{@cafe.name} added successfully."
+			if @cafe.geocoded?
+				flash[:notice] = "geocoded correctly"
+			end
 			redirect_to @cafe
 		else
       errors = []
@@ -42,7 +45,7 @@ class CafesController < ApplicationController
 
 		# Find the cafes near this one and add them to the map
 		@nearbys = []
-		@cafe.nearbys.each do |nearby_cafe|
+		@cafe.nearbys(1).each do |nearby_cafe|
 			@nearbys << nearby_cafe
 			@map_image += "&markers=olor:blue%7C" + nearby_cafe.latitude.to_s + "," + nearby_cafe.longitude.to_s
 		end
