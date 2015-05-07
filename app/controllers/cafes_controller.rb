@@ -33,6 +33,18 @@ class CafesController < ApplicationController
 
 	def show
 		@comments = Comment.where(cafe_id: @cafe)
+
+		# Create a static Google Map, centred around this cafe
+		@map_image = "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=500x500&center=" +
+			@cafe.latitude.to_s + "," + @cafe.longitude.to_s +
+			"&markers=icon:http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%7C" +
+			@cafe.latitude.to_s + "," + @cafe.longitude.to_s
+
+		# Find the cafes near this one and add them to the map
+		@cafe.nearbys.each do |nearby_cafe|
+			@map_image += "&markers=olor:blue%7C" + nearby_cafe.latitude.to_s + "," + nearby_cafe.longitude.to_s
+		end
+
 	end
 
 	def edit
