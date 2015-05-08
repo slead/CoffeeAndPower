@@ -47,6 +47,8 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.5.2)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     geocoder (1.2.8)
     haml (4.0.6)
       tilt
@@ -131,6 +133,7 @@ DEPENDENCIES
   acts_as_votable (~> 0.10.0)
   coffee-rails (~> 4.0.0)
   devise (~> 3.4.1)
+  friendly_id (~> 5.1.0)
   geocoder (~> 1.2.8)
   haml (~> 4.0.6)
   jbuilder (~> 2.0)

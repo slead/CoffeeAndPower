@@ -53,7 +53,6 @@ class CafesController < ApplicationController
 			@map_image += "&markers=olor:blue%7C" + nearby_cafe.latitude.to_s + "," + nearby_cafe.longitude.to_s
 		end
 		@nearbys.sort_by {|_key, value| value}
-
 	end
 
 	def edit
@@ -90,6 +89,7 @@ class CafesController < ApplicationController
 	end
 
 	def find_cafe
-		@cafe = Cafe.find(params[:id])
+		# @cafe = Cafe.find(params[:id])
+		@cafe = Cafe.friendly.find(params[:id])
 	end
 end
