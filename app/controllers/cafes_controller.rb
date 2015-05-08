@@ -19,10 +19,7 @@ class CafesController < ApplicationController
 		@cafe = current_user.cafes.build(cafe_params)
 		@cafe.username = current_user.name
 		if @cafe.save
-			# flash[:notice] = "Cafe #{@cafe.name} added successfully."
-			if @cafe.geocoded?
-				flash[:notice] = "geocoded correctly"
-			end
+			flash[:notice] = "Cafe #{@cafe.name} added successfully."
 			redirect_to @cafe
 		else
       errors = []

@@ -1,9 +1,14 @@
 %header
   .container
     .intro-text
-      .intro-lead-in Welcome to Coffee and Power
-      .intro-heading Lorem ipsum dolor sit amet
-.container  
+      .intro-lead-in Welcome to Coffee and power
+      .intro-heading Find a cafe with wifi
+.container
+  .row.wrapper.top-50
+    .col-md-12
+      .col-md-6.col-md-offset-3.right-inner-addon
+        %i.fa.fa-search
+        %input{:type=>"search", :class => "form-control", :placeholder => "Enter an address to find a cafe with wifi"}
   .row
     #cafes
       - @cafes.each do |cafe|

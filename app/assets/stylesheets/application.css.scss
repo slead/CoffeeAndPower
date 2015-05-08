@@ -42,7 +42,7 @@ ul {
     font-size: 1.25rem;
     color: #ffffff;
     letter-spacing: 1px;
-    padding: 2.5rem 0;
+    padding: 1.2rem 0;
   }
 }
 
@@ -119,6 +119,24 @@ p.summary{
   margin-top: 25px;
   img {
     width: 100%;
+  }
+}
+
+/*search box*/
+.right-inner-addon {
+  position: relative;
+  input {
+    padding-right: 30px;
+  }  
+  i {
+    position: absolute;
+    right: 0px;
+    padding: 17px 0;
+    pointer-events: none;
+    color: #727272;
+  }
+  .search-form {
+    text-align: center;
   }
 }
 
