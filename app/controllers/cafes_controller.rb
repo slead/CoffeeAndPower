@@ -38,7 +38,7 @@ class CafesController < ApplicationController
 		@comments = Comment.where(cafe_id: @cafe)
 
 		# Create a static Google Map, centred around this cafe
-		@map_image = "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=500x500&center=" +
+		@map_image = "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=450x450&center=" +
 			@cafe.latitude.to_s + "," + @cafe.longitude.to_s +
 			"&markers=icon:http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%7C" +
 			@cafe.latitude.to_s + "," + @cafe.longitude.to_s

@@ -65,6 +65,10 @@ ul {
   }
 }
 
+.simple_form {
+  margin-bottom: 10px;
+}
+
 .name {
     h2 {
       font-weight: 700;
@@ -75,6 +79,14 @@ ul {
 .cafe_content {
   .social {
     text-align: right;
+  }
+}
+
+.cafe_show{
+  .edit {
+    position: absolute;
+    right: 10px;
+    margin-top: -20px;
   }
 }
 
@@ -102,6 +114,9 @@ p.summary{
 
 .map {
   margin-top: 25px;
+  img {
+    width: 100%;
+  }
 }
 
 @import 'bootstrap.css';
