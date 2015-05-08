@@ -19,14 +19,14 @@
         %p.description= @cafe.description
       
       #comments
-      - if @cafe.comments.count > 0
-        %h4.comment_count= pluralize(@cafe.comments.count, "Comment")
-        = render @cafe.comments
+        - if @cafe.comments.count > 0
+          %h4.comment_count= pluralize(@cafe.comments.count, "Comment")
+          = render @cafe.comments
 
-      - if @cafe.user == current_user
-        = render "comments/form"
-      - else
-        = link_to 'Sign in to leave a comment', new_user_session_path, class: "sign_in"
+        - if current_user
+          = render "comments/form"
+        - else
+          = link_to 'Sign in to leave a comment', new_user_session_path, class: "sign_in"
 
     .col-md-3.col-md-offset-1
       %p.user
