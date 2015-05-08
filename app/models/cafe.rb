@@ -8,6 +8,6 @@ class Cafe < ActiveRecord::Base
   after_validation :geocode, if: :address_changed?
 
   extend FriendlyId
-  friendly_id :name
+  friendly_id :name, :use => :slugged
   
 end
