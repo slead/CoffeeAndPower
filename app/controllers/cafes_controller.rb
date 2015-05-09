@@ -19,17 +19,15 @@ class CafesController < ApplicationController
 		@cafe = current_user.cafes.build(cafe_params)
 		@cafe.username = current_user.name
 		if @cafe.save
-			# flash[:notice] = "Cafe #{@cafe.name} added successfully."
+			flash[:notice] = "Cafe #{@cafe.name} added successfully."
+
+      # Associate the cafe with a Location, creating a new Location if needed
       if @cafe.geocoded?
-        location = Location.where(name: @cafe.city)
-        if location.any?
-          @cafe.location_id = location.take.id
-          flash[:notice] = "Cafe has the location ID #{@cafe.location_id}"
-        else
-          flash[:notice] = "Need to add location #{@cafe.city}"
-          x = 0
-        end
+        update_location
+      else
+        flash[:alert] = "There was a problem geocoding cafe #{@cafe.name}."
       end
+
 			redirect_to @cafe
 		else
       errors = []
@@ -72,6 +70,22 @@ class CafesController < ApplicationController
 			render 'edit'
 		end
 	end
+
+  #Locations are basically cities/suburbs where we have at least one cafe
+  def update_location
+    @location = Location.where(name: @cafe.city)
+    if @location.any?
+      @cafe.location_id = @location.take.id
+    else
+      @location = Location.new(name: @cafe.city)
+      xy = Geocoder.coordinates(@location.name)
+      @location.latitude = xy[0]
+      @location.longitude = xy[1]
+      @location.save
+      @cafe.location_id = @location.id
+    end
+    @cafe.save
+  end
 
 	def destroy
 			@cafe.destroy
