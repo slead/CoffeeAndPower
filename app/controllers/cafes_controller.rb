@@ -19,7 +19,17 @@ class CafesController < ApplicationController
 		@cafe = current_user.cafes.build(cafe_params)
 		@cafe.username = current_user.name
 		if @cafe.save
-			flash[:notice] = "Cafe #{@cafe.name} added successfully."
+			# flash[:notice] = "Cafe #{@cafe.name} added successfully."
+      if @cafe.geocoded?
+        location = Location.where(name: @cafe.city)
+        if location.any?
+          @cafe.location_id = location.take.id
+          flash[:notice] = "Cafe has the location ID #{@cafe.location_id}"
+        else
+          flash[:notice] = "Need to add location #{@cafe.city}"
+          x = 0
+        end
+      end
 			redirect_to @cafe
 		else
       errors = []
@@ -82,7 +92,7 @@ class CafesController < ApplicationController
 	private
 
 	def cafe_params
-		params.require(:cafe).permit(:name, :address, :description)
+		params.require(:cafe).permit(:name, :address, :description, :location_id)
 	end
 
 	def find_cafe

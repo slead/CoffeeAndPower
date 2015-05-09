@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       get "dislike", to: "cafes#downvote"
     end
   end
+
+  resources :locations
   
   root 'cafes#index'
 end
