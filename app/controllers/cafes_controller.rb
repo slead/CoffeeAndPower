@@ -79,6 +79,8 @@ class CafesController < ApplicationController
       @cafe.location_id = @location.take.id
     else
       @location = Location.new(name: @cafe.city)
+      @location.state = @cafe.state
+      @location.country = @cafe.country
       xy = Geocoder.coordinates(@location.name)
       @location.latitude = xy[0]
       @location.longitude = xy[1]
@@ -107,7 +109,7 @@ class CafesController < ApplicationController
 	private
 
 	def cafe_params
-		params.require(:cafe).permit(:name, :address, :description, :location_id)
+		params.require(:cafe).permit(:name, :address, :description, :location_id, :city, :state)
 	end
 
 	def find_cafe

@@ -11,7 +11,7 @@
         / %input{:type=>"search", :class => "form-control", :placeholder => "Enter an address to find a cafe with wifi"}
         %select#locations
           - @locations.each do |location|
-            %option{:value => location.id}= location.name
+            %option{:value => location.id}= location.name.to_s + ", " + location.state.to_s + ", " + location.country.to_s
   .row
     #results
       - @cafes.each do |cafe|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508101047) do
+ActiveRecord::Schema.define(version: 20150509104457) do
 
   create_table "cafes", force: true do |t|
     t.string   "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150508101047) do
     t.float    "longitude"
     t.string   "slug"
     t.integer  "location_id"
+    t.string   "state"
   end
 
   add_index "cafes", ["slug"], name: "index_cafes_on_slug", unique: true
@@ -61,6 +62,8 @@ ActiveRecord::Schema.define(version: 20150508101047) do
     t.string   "name"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "country"
+    t.string   "state"
   end
 
   create_table "users", force: true do |t|
