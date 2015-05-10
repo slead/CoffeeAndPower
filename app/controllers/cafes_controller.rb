@@ -8,7 +8,12 @@ class CafesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
 	def index
-		@cafes = Cafe.all.order("CREATED_AT")
+    if params[:location].blank?
+  		@cafes = Cafe.all.order("CREATED_AT")
+    else
+      @location_id = Location.find_by(name: params[:location])
+      @cafes = Cafe.where(location_id: @location_id)
+    end
     @locations = Location.all.order("Name")
 	end
 
@@ -75,13 +80,15 @@ class CafesController < ApplicationController
   #Locations are basically cities/suburbs where we have at least one cafe
   def update_location
     @location = Location.where(name: @cafe.city)
+    # If there is an existing location, relate it to the cafe
     if @location.any?
       @cafe.location_id = @location.take.id
+    # Otherwise, geocode a new location based on this cafe's name, state & country
     else
       @location = Location.new(name: @cafe.city)
       @location.state = @cafe.state
       @location.country = @cafe.country
-      xy = Geocoder.coordinates(@location.name)
+      xy = Geocoder.coordinates(@location.name.to_s + "," + @location.state.to_s + "," + @location.country)
       @location.latitude = xy[0]
       @location.longitude = xy[1]
       @location.save
