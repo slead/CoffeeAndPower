@@ -13,6 +13,9 @@ class CafesController < ApplicationController
     else
       @location_id = Location.find_by(name: params[:location])
       @cafes = Cafe.where(location_id: @location_id)
+      if @cafes.count == 0
+        flash[:notice] = 'Sorry, no cafes were found here.'
+      end
     end
     @locations = Location.all.order("Name")
 	end
