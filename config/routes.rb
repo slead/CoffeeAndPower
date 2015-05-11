@@ -10,5 +10,5 @@ Rails.application.routes.draw do
 
   resources :locations
   
-  root 'cafes#index'
+  root 'homepage#index'
 end

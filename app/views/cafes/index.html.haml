@@ -1,21 +1,8 @@
-%header
-  .container
-    .intro-text
-      .intro-lead-in Welcome to Coffee and power
-      .intro-heading Find a cafe with wifi
 .container
-  .row.wrapper.top-50
+  .row.wrapper.top-100
     .col-md-12
       .col-md-6.col-md-offset-3.right-inner-addon
-        %i.fa.fa-search
-        / %input{:type=>"search", :class => "form-control", :placeholder => "Enter an address to find a cafe with wifi"}
-        %select#locations
-          - @locations.each do |location|
-            %option{:value => location.id}= location.name.to_s + ", " + location.state.to_s + ", " + location.country.to_s
-        %ul
-          %li= link_to "All cafes", root_path
-          - Location.all.each do |location|
-            %li= link_to location.name, cafes_path(location: location.name)
+        =render 'search'
   .row
     #results
       - @cafes.each do |cafe|

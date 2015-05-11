@@ -1,0 +1,7 @@
+%p Find a cafe in:
+= select_tag 'select_locations', options_for_select(@locations.collect{ |u| [u.name, u.id] })
+
+%ul
+  %li= link_to "All cafes", cafes_path
+  - Location.all.each do |location|
+    %li= link_to location.name, cafes_path(location: location.name)

@@ -24,4 +24,11 @@ $(document).ready(function() {
       $(this).remove();
     })
   }, 4500)
+
+  // // Run a search when the user changes the Search dropdown
+  $( "#select_locations" ).change(function() {
+    location_id = $("#select_locations").val();
+    location_name = $( "#select_locations option:selected" ).text();
+    console.log(location_id, location_name)
+  });
 })
