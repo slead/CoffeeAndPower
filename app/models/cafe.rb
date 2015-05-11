@@ -5,6 +5,7 @@ class Cafe < ActiveRecord::Base
   belongs_to :location
   validates_presence_of :name, :address
   acts_as_votable
+  searchkick
 
   # Geocoding
   geocoded_by :address

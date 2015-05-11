@@ -8,15 +8,20 @@ class CafesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
 	def index
-    if params[:location].blank?
-  		@cafes = Cafe.all.order("CREATED_AT")
+    if params[:search].present?
+      @cafes = Cafe.search(params[:search], page: params[:page])
     else
-      @location_id = Location.find_by(name: params[:location])
-      @cafes = Cafe.where(location_id: @location_id)
-      if @cafes.count == 0
-        flash[:notice] = 'Sorry, no cafes were found here.'
-      end
+      @cafes = Cafe.all.order("CREATED_AT")
     end
+    # if params[:location].blank?
+  		# @cafes = Cafe.all.order("CREATED_AT")
+    # else
+    #   @location_id = Location.find_by(name: params[:location])
+    #   @cafes = Cafe.where(location_id: @location_id)
+    #   if @cafes.count == 0
+    #     flash[:notice] = 'Sorry, no cafes were found here.'
+    #   end
+    # end
     @locations = Location.all.order("Name")
 	end
 
