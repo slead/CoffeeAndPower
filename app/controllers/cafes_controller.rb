@@ -10,14 +10,14 @@ class CafesController < ApplicationController
 	def index
     if params[:search].present?
       @cafes = Cafe.search(params[:search], 
-        page: params[:page], per_page: 6,
+        page: params[:page], per_page: 3,
         order: {name: :asc}
       )
       if @cafes.count == 0
         flash[:notice] = 'Sorry, no cafes were found.'
       end
     else
-      @cafes = Cafe.all.order("CREATED_AT").paginate(:page => params[:page], :per_page => 6)
+      @cafes = Cafe.all.order("CREATED_AT").paginate(:page => params[:page], :per_page => 3)
     end
 	end
 

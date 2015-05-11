@@ -20,5 +20,6 @@
             %span
               %i.fa.fa-thumbs-o-down
                 = cafe.get_dislikes.size
+  %hr
   .row.paginate
-    = will_paginate @cafes
+    = will_paginate @cafes, renderer: BootstrapPagination::Rails

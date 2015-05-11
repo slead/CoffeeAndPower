@@ -86,6 +86,19 @@ ul {
   width: 100%;
 }
 
+.paginate {
+  text-align: center;
+  font-size: 10px;
+  .pagination > li > a, {
+    color: #727272;
+  }
+  .pagination > .active > span {
+    background-color: #d3d3d3;
+    border-color: #727272;
+    color: #000;
+  }
+}
+
 .name {
     h2 {
       font-weight: 700;
