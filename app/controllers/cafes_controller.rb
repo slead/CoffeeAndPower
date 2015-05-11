@@ -7,6 +7,8 @@ class CafesController < ApplicationController
 	before_action :find_cafe, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, except: [:index, :show]
 
+  utf8_enforcer_workaround
+
 	def index
     if params[:search].present?
       @cafes = Cafe.search(params[:search], 
