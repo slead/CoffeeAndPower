@@ -1,8 +1,7 @@
 .container
-  .row.wrapper.top-100
+  .row.wrapper.top-150
     .col-md-12
-      .col-md-6.col-md-offset-3.right-inner-addon
-        =render 'search'
+      =render 'search'
   .row
     #results
       - @cafes.each do |cafe|
