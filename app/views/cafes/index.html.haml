@@ -20,3 +20,5 @@
             %span
               %i.fa.fa-thumbs-o-down
                 = cafe.get_dislikes.size
+  .row.paginate
+    = will_paginate @cafes

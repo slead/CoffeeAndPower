@@ -10,15 +10,14 @@ class CafesController < ApplicationController
 	def index
     if params[:search].present?
       @cafes = Cafe.search(params[:search], 
-        page: params[:page],
-        # fields: ["name", "description", "address"],
+        page: params[:page], per_page: 6,
         order: {name: :asc}
       )
       if @cafes.count == 0
         flash[:notice] = 'Sorry, no cafes were found.'
       end
     else
-      @cafes = Cafe.all.order("CREATED_AT")
+      @cafes = Cafe.all.order("CREATED_AT").paginate(:page => params[:page], :per_page => 6)
     end
 	end
 
@@ -32,7 +31,6 @@ class CafesController < ApplicationController
 		if @cafe.save
 			flash[:notice] = "Cafe #{@cafe.name} added successfully."
 
-      # Associate the cafe with a Location, creating a new Location if needed
       if ! @cafe.geocoded?
        flash[:alert] = "There was a problem geocoding cafe #{@cafe.name}."
       end
