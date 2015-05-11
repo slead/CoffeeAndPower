@@ -1,7 +1,11 @@
 .row
   .col-md-8.col-md-offset-2
     = form_tag cafes_path, :id => "search_form", :class => "input-group", :method => :get do
-      = text_field_tag :search, nil, :class => "form-control", :placeholder => "Search for a cafe"
+      - if params[:search].present?
+        - placeholder = params[:search]
+      - else
+        - placeholder = "Search for a cafe"
+      = text_field_tag :search, nil, :class => "form-control", :placeholder => placeholder
       %span.input-group-btn
         = submit_tag value = "Search", class: "btn btn-warning"
         = link_to cafes_path, class: "btn btn-default" do
