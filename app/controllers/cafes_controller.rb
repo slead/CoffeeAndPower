@@ -11,6 +11,7 @@ class CafesController < ApplicationController
     if params[:search].present?
       @cafes = Cafe.search(params[:search], 
         page: params[:page],
+        # fields: ["name", "description", "address"],
         order: {name: :asc}
       )
       if @cafes.count == 0
@@ -19,16 +20,6 @@ class CafesController < ApplicationController
     else
       @cafes = Cafe.all.order("CREATED_AT")
     end
-    # if params[:location].blank?
-  		# @cafes = Cafe.all.order("CREATED_AT")
-    # else
-    #   @location_id = Location.find_by(name: params[:location])
-    #   @cafes = Cafe.where(location_id: @location_id)
-    #   if @cafes.count == 0
-    #     flash[:notice] = 'Sorry, no cafes were found here.'
-    #   end
-    # end
-    @locations = Location.all.order("Name")
 	end
 
 	def new
@@ -42,10 +33,8 @@ class CafesController < ApplicationController
 			flash[:notice] = "Cafe #{@cafe.name} added successfully."
 
       # Associate the cafe with a Location, creating a new Location if needed
-      if @cafe.geocoded?
-        update_location
-      else
-        flash[:alert] = "There was a problem geocoding cafe #{@cafe.name}."
+      if ! @cafe.geocoded?
+       flash[:alert] = "There was a problem geocoding cafe #{@cafe.name}."
       end
 
 			redirect_to @cafe
@@ -90,26 +79,6 @@ class CafesController < ApplicationController
 			render 'edit'
 		end
 	end
-
-  #Locations are basically cities/suburbs where we have at least one cafe
-  def update_location
-    @location = Location.where(name: @cafe.city)
-    # If there is an existing location, relate it to the cafe
-    if @location.any?
-      @cafe.location_id = @location.take.id
-    # Otherwise, geocode a new location based on this cafe's name, state & country
-    else
-      @location = Location.new(name: @cafe.city)
-      @location.state = @cafe.state
-      @location.country = @cafe.country
-      xy = Geocoder.coordinates(@location.name.to_s + "," + @location.state.to_s + "," + @location.country)
-      @location.latitude = xy[0]
-      @location.longitude = xy[1]
-      @location.save
-      @cafe.location_id = @location.id
-    end
-    @cafe.save
-  end
 
 	def destroy
 			@cafe.destroy
