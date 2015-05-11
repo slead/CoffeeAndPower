@@ -2,3 +2,5 @@
   .col-md-8.col-md-offset-2
     = form_tag cafes_path, :id => "search_form", :class => "input-group", :method => :get do
       = text_field_tag :search, nil, :class => "form-control", :placeholder => "Search for a cafe"
+      %span.input-group-btn
+        = submit_tag value = "Search", class: "btn btn-default"
