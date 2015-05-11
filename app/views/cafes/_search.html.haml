@@ -3,4 +3,6 @@
     = form_tag cafes_path, :id => "search_form", :class => "input-group", :method => :get do
       = text_field_tag :search, nil, :class => "form-control", :placeholder => "Search for a cafe"
       %span.input-group-btn
-        = submit_tag value = "Search", class: "btn btn-default", :name => nil
+        = submit_tag value = "Search", class: "btn btn-warning"
+        = link_to cafes_path, class: "btn btn-default" do
+          %i.fa.fa-times#cancel_search

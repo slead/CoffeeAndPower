@@ -84,6 +84,12 @@ ul {
 
 #search_form {
   width: 100%;
+  margin-bottom: 25px;
+  /* The Cancel button on the search form */
+  #cancel_search {
+    color: #727272;
+    font-size: 12px;
+  }
 }
 
 .paginate {
@@ -94,7 +100,7 @@ ul {
   }
   .pagination > .active > span {
     background-color: #d3d3d3;
-    border-color: #727272;
+    border-color: #939393;
     color: #000;
   }
 }
