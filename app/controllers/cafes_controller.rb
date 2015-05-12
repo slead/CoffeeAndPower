@@ -13,7 +13,8 @@ class CafesController < ApplicationController
     if params[:search].present?
       @cafes = Cafe.search(params[:search], 
         page: params[:page], per_page: 6,
-        order: {name: :asc}
+        order: {name: :asc},
+        fields: ["name", "address"]
       )
       if @cafes.count == 0
         flash[:notice] = 'Sorry, no cafes were found.'
