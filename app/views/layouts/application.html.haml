@@ -13,17 +13,22 @@
     %link{rel: "stylesheet", href: "http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"}
 
   %body#page-top.index
-    = render 'layouts/navigation'
+    #wrap
+      = render 'layouts/navigation'
 
-    .notifications
-      - if notice
-        #notice_wrapper
-          %p.alert.alert-dismissable= notice
-          %span.close{type: "button", data: {dismiss:"alert"}}
-            %i.fa.fa-times
-      - elsif alert
-        #alert_wrapper
-          %p.alert.alert-dismissable= alert
-          %span.close{type: "button", data: {dismiss:"alert"}}
-            %i.fa.fa-times
-    =yield
+      .notifications
+        - if notice
+          #notice_wrapper
+            %p.alert.alert-dismissable= notice
+            %span.close{type: "button", data: {dismiss:"alert"}}
+              %i.fa.fa-times
+        - elsif alert
+          #alert_wrapper
+            %p.alert.alert-dismissable= alert
+            %span.close{type: "button", data: {dismiss:"alert"}}
+              %i.fa.fa-times
+      =yield
+    #footer
+      .container
+        .row.paginate
+          = will_paginate @cafes, renderer: BootstrapPagination::Rails

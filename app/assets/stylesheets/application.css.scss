@@ -2,6 +2,31 @@
  *= require_self
  */
 
+html, body {
+  height: 100%;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+}
+
+/* Push the footer down when minimised */
+@media (max-width: 1000px) {
+  #footer {
+    margin-top: 50px;
+  }
+}
+
  .grey {
   color: #727272;
 }
