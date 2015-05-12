@@ -3,10 +3,12 @@
     = form_tag cafes_path, :id => "search_form", :class => "input-group", :method => :get do
       - if params[:search].present?
         - placeholder = params[:search]
+        - cls = "btn btn-default"
       - else
         - placeholder = "Search for a cafe"
-      = text_field_tag :search, nil, :class => "form-control", :placeholder => placeholder
+        - cls = "btn btn-default disabled"
+      = text_field_tag :search, nil, :id => "searchBox", :class => "form-control", :placeholder => placeholder
       %span.input-group-btn
         = submit_tag value = "Search", class: "btn btn-warning"
-        = link_to cafes_path, class: "btn btn-default" do
+        = link_to cafes_path, class: cls do
           %i.fa.fa-times#cancel_search
