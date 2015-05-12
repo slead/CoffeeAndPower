@@ -31,4 +31,5 @@
     #footer
       .container
         .row.paginate
-          = will_paginate @cafes, renderer: BootstrapPagination::Rails
+          - if @cafes
+            = will_paginate @cafes, renderer: BootstrapPagination::Rails

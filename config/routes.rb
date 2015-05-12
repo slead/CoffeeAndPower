@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :locations
+  resources :homepage
   
   root 'homepage#index'
 end
