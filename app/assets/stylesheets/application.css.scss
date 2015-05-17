@@ -115,6 +115,9 @@ ul {
     color: #727272;
     font-size: 12px;
   }
+  .twitter-typeahead {
+    display: block;
+  }
 }
 
 .paginate {
@@ -203,4 +206,5 @@ p.summary{
 
 @import 'bootstrap.css';
 @import 'agency.css';
-@import 'comments.css.scss'
+@import 'comments.css.scss';
+@import 'typeahead.css';
