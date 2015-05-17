@@ -8,7 +8,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :locations
+  resources :locations, only: :index do
+    collection do
+      # post :import
+      get :autocomplete
+    end
+  end
   
   root 'homepage#index'
 end

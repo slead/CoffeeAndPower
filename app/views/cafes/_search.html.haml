@@ -3,10 +3,10 @@
     = form_tag cafes_path, :id => "search_form", :class => "input-group", :method => :get do
       - if params[:search].present?
         - btnClear_class = "btn btn-default"
-        = text_field_tag :search, nil, :id => "searchBox", :class => "form-control", :value => params[:search], :placeholder => "Search for a cafe"
+        = text_field_tag :search, nil, :id => "searchBox", :class => "form-control", :value => params[:search], :placeholder => "Search for a cafe at this address", autocomplete: "off"
       - else
         - btnClear_class = "btn btn-default disabled"
-        = text_field_tag :search, nil, :id => "searchBox", :class => "form-control", :placeholder => "Search for a cafe"
+        = text_field_tag :search, nil, :id => "searchBox", :class => "form-control", :placeholder => "Search for a cafe at this address", autocomplete: "off"
       %span.input-group-btn
         = submit_tag value = "Search", class: "btn btn-warning"
         = link_to cafes_path, class: btnClear_class do

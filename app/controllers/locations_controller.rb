@@ -14,6 +14,10 @@ class LocationsController < ApplicationController
   def create
   end
 
+  def autocomplete
+    render json: Location.search(params[:query], autocomplete: true, limit: 10).map(&:name)
+  end
+
   private
 
   def location_params

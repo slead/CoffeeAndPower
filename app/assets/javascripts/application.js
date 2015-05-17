@@ -24,4 +24,9 @@ $(document).ready(function() {
       $(this).remove();
     })
   }, 4500)
+
+  $('#searchBox').typeahead({
+    name: "Location",
+    remote: "/locations/autocomplete?query=%QUERY"
+  });
 })
