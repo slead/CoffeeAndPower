@@ -11,12 +11,12 @@ class CafesController < ApplicationController
 
 	def index
     if params[:search].present?
-      @search_results = Location.search(params[:search])
-      if @search_results.any?
-        @location = @search_results[0]
+      @location_search_results = Location.search(params[:search])
+      if @location_search_results.any?
+        @location = @location_search_results[0]
         @cafes = Cafe.where(location_id: @location).paginate(:page => params[:page], :per_page => 6)
       else
-        @cafes = Cafe.none
+        @cafes = Cafe.none.paginate(:page => params[:page], :per_page => 6)
       end
     else
       @cafes = Cafe.all.order("CREATED_AT").paginate(:page => params[:page], :per_page => 6)

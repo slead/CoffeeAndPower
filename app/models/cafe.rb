@@ -5,7 +5,7 @@ class Cafe < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   validates_presence_of :name, :address
   acts_as_votable
-  # searchkick
+  searchkick
 
   # Geocoding
   geocoded_by :address
