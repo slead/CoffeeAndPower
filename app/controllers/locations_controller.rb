@@ -3,6 +3,14 @@ class LocationsController < ApplicationController
     @location = Location.new
   end
 
+  def index
+    if params[:search].present?
+      @locations = Location.search(params[:search])
+    else
+      @locations = Location.all
+    end
+  end
+
   def create
   end
 

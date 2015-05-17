@@ -11,13 +11,12 @@ class CafesController < ApplicationController
 
 	def index
     if params[:search].present?
-      @cafes = Cafe.search(params[:search], 
-        page: params[:page], per_page: 6,
-        order: {name: :asc},
-        fields: ["name", "address"]
-      )
-      if @cafes.count == 0
-        flash[:notice] = 'Sorry, no cafes were found.'
+      @search_results = Location.search(params[:search])
+      if @search_results.any?
+        @location = @search_results[0]
+        @cafes = Cafe.where(location_id: @location).paginate(:page => params[:page], :per_page => 6)
+      else
+        @cafes = Cafe.none
       end
     else
       @cafes = Cafe.all.order("CREATED_AT").paginate(:page => params[:page], :per_page => 6)
@@ -77,6 +76,11 @@ class CafesController < ApplicationController
 
 	def update
 		if @cafe.update(cafe_params)
+      if @cafe.geocoded?
+        update_location
+      else
+        flash[:alert] = "There was a problem geocoding cafe #{@cafe.name}."
+      end
 			redirect_to @cafe
 		else
 			render 'edit'
