@@ -34,8 +34,10 @@ class CafesController < ApplicationController
 		if @cafe.save
 			flash[:notice] = "Cafe #{@cafe.name} added successfully."
 
-      if ! @cafe.geocoded?
-       flash[:alert] = "There was a problem geocoding cafe #{@cafe.name}."
+      if @cafe.geocoded?
+        update_location
+      else
+        flash[:alert] = "There was a problem geocoding cafe #{@cafe.name}."
       end
 
 			redirect_to @cafe
@@ -107,4 +109,24 @@ class CafesController < ApplicationController
 		# @cafe = Cafe.find(params[:id])
 		@cafe = Cafe.friendly.find(params[:id])
 	end
+
+  #Locations are basically cities/suburbs where we have at least one cafe
+  def update_location
+    @location = Location.where(name: @cafe.city)
+    # If there is an existing location, relate it to the cafe
+    if @location.any?
+      @cafe.location_id = @location.take.id
+    # Otherwise, geocode a new location based on this cafe's name, state & country
+    else
+      @location = Location.new(name: @cafe.city)
+      @location.state = @cafe.state
+      @location.country = @cafe.country
+      xy = Geocoder.coordinates(@location.name.to_s + "," + @location.state.to_s + "," + @location.country)
+      @location.latitude = xy[0]
+      @location.longitude = xy[1]
+      @location.save
+      @cafe.location_id = @location.id
+    end
+    @cafe.save
+  end
 end

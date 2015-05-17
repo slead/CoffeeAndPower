@@ -1,6 +1,7 @@
 class Cafe < ActiveRecord::Base
 
   belongs_to :user
+  belongs_to :location
   has_many :comments, dependent: :destroy
   validates_presence_of :name, :address
   acts_as_votable
