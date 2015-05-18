@@ -7,9 +7,9 @@
     #map
       :javascript
         $(document).ready(function(){          
-          var geojson = #{@geojson.to_json};    // pass ruby variable to javascript
-          L.geoJson(geojson).addTo(mapObj.leafletMap);
-          x = 0;
+          var geojson = #{@geojson.to_json};
+          mapObj.jsonLayer.addData(geojson);
+          mapObj.leafletMap.fitBounds(mapObj.jsonLayer.getBounds());
         });
 
   #results.row

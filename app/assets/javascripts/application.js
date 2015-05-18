@@ -41,4 +41,5 @@ $(document).ready(function() {
         maxZoom: 18,
         layers: [stamen],
     });
+  mapObj.jsonLayer = L.geoJson().addTo(mapObj.leafletMap);
 })
