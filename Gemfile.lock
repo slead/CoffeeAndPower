@@ -61,6 +61,8 @@ GEM
     execjs (2.5.2)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    font-awesome-rails (4.2.0.0)
+      railties (>= 3.2, < 5.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     geocoder (1.2.8)
@@ -160,6 +162,7 @@ DEPENDENCIES
   byebug (~> 4.0.5)
   coffee-rails (~> 4.0.0)
   devise (~> 3.4.1)
+  font-awesome-rails
   friendly_id (~> 5.1.0)
   geocoder (~> 1.2.8)
   haml (~> 4.0.6)

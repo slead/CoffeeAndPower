@@ -81,6 +81,13 @@ cafes = Cafe.create!([
     description: 'Lots of outlets near tables. Wi-Fi password: coffeetime',
     user_id: 2,
     location_id: 9
+  },
+  {
+    name: 'Equal Exchange Cafe',
+    address: '226 Causeway St, Boston, MA',
+    description: 'Plugs along the walls. Wi-Fi password: fair trade',
+    user_id: 2,
+    location_id: 9
   }
 
   ])

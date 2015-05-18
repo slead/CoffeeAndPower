@@ -4,10 +4,15 @@
       =render 'search'
   .row
     #results
-      - if @cafes.any?
-        %h1 Results
-        - @cafes.each do |cafe|
-          .col-md-4.cafe_content
+    - if @cafes.any?
+      %h1 Results
+      - idx = -1
+      - @cafes.each do |cafe|
+        - idx += 1
+        - if idx % 3 == 0
+          .row
+
+          .col-md-4
             .name
               %h2= link_to truncate(cafe.name, length: 18), cafe
             .address
@@ -22,8 +27,8 @@
               %span
                 %i.fa.fa-thumbs-o-down
                   = cafe.get_dislikes.size
-      - else
-        %h1 No cafes found!
-        %p
-          Would you like to 
-          =link_to "add a cafe?", new_cafe_path
+    - else
+      %h1 No cafes found!
+      %p
+        Would you like to 
+        =link_to "add a cafe?", new_cafe_path
