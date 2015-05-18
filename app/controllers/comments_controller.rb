@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
 
     def create
-      @cafe = Cafe.find(params[:cafe_id])
+      @cafe = Cafe.friendly.find(params[:cafe_id])
       @comment = @cafe.comments.create(params[:comment].permit(:comment))
       @comment.user = current_user
 
@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-      @cafe = Cafe.find(params[:cafe_id])
+      @cafe = Cafe.friendly.find(params[:cafe_id])
       @comment = @cafe.comments.find(params[:id])
       @comment.destroy
       redirect_to cafe_path(@cafe)
