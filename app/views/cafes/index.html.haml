@@ -4,7 +4,13 @@
       =render 'search'
 
   .row
-    = map(:center => {:latlng => [51.52238797921441, -0.08366235665359283],:zoom => 18 })
+    #map
+      :javascript
+        $(document).ready(function(){          
+          var geojson = #{@geojson.to_json};    // pass ruby variable to javascript
+          L.geoJson(geojson).addTo(mapObj.leafletMap);
+          x = 0;
+        });
 
   #results.row
     - if @cafes.any?

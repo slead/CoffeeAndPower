@@ -23,6 +23,29 @@ class CafesController < ApplicationController
     else
       @cafes = Cafe.all.order("CREATED_AT").paginate(:page => params[:page], :per_page => 6)
     end
+
+    # Make a JSON object from the Cafes, to add to the map
+    @geojson = Array.new
+    @cafes.each do |cafe|
+      @geojson << {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [cafe.longitude, cafe.latitude]
+        },
+        properties: {
+          name: cafe.name,
+          address: cafe.address,
+          :'marker-color' => '#00607d',
+          :'marker-symbol' => 'circle',
+          :'marker-size' => 'medium'
+        }
+      }
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @geojson }  # respond with the created JSON object
+    end
 	end
 
 	def new
