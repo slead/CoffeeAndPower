@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require leaflet
 
 $(document).ready(function() {
   setTimeout(function() {

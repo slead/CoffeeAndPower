@@ -3,6 +3,9 @@
     .col-md-12
       =render 'search'
 
+  .row
+    = map(:center => {:latlng => [51.52238797921441, -0.08366235665359283],:zoom => 18 })
+
   #results.row
     - if @cafes.any?
       - @cafes.in_groups_of(3, false).each_with_index do |group|
