@@ -34,7 +34,7 @@
     .col-md-3.col-md-offset-1
       %p.user
         Added by
-        = @cafe.username
+        = @cafe.username || "anon"
         = time_ago_in_words(@cafe.created_at)
         ago
       .voting
