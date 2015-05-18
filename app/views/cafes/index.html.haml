@@ -5,12 +5,17 @@
 
   .row
     #map
+    - if @cafes.any?
       :javascript
-        $(document).ready(function(){          
+        $(document).ready(function(){
+          $("#map").show();       
           var geojson = #{@geojson.to_json};
           mapObj.jsonLayer.addData(geojson);
           mapObj.leafletMap.fitBounds(mapObj.jsonLayer.getBounds());
         });
+    - else
+      :javascript
+        $("#map").hide();
 
   #results.row
     - if @cafes.any?
