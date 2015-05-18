@@ -2,31 +2,27 @@
   .row.wrapper.top-150
     .col-md-12
       =render 'search'
-  .row
-    #results
-    - if @cafes.any?
-      %h1 Results
-      - idx = -1
-      - @cafes.each do |cafe|
-        - idx += 1
-        - if idx % 3 == 0
-          .row
 
-          .col-md-4
-            .name
-              %h2= link_to truncate(cafe.name, length: 18), cafe
-            .address
-              %h4= truncate(cafe.address, lenth: 80)
-            .data.clearfix
-            %p.summary
-              = truncate(cafe.description, length: 200)
-            %p.social
-              %span
-                %i.fa.fa-thumbs-o-up
-                  = cafe.get_likes.size
-              %span
-                %i.fa.fa-thumbs-o-down
-                  = cafe.get_dislikes.size
+  #results.row
+    - if @cafes.any?
+      - @cafes.in_groups_of(3, false).each_with_index do |group|
+        .row
+          - group.each do |cafe|
+            .col-md-4.cafe_content
+              .name
+                %h2= link_to truncate(cafe.name, length: 18), cafe
+              .address
+                %h4= truncate(cafe.address, lenth: 80)
+              .data.clearfix
+              %p.summary
+                = truncate(cafe.description, length: 200)
+              %p.social
+                %span
+                  %i.fa.fa-thumbs-o-up
+                    = cafe.get_likes.size
+                %span
+                  %i.fa.fa-thumbs-o-down
+                    = cafe.get_dislikes.size
     - else
       %h1 No cafes found!
       %p
