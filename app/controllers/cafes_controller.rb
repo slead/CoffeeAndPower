@@ -82,12 +82,6 @@ class CafesController < ApplicationController
 	def show
 		@comments = Comment.where(cafe_id: @cafe)
 
-		# Create a static Google Map, centred around this cafe
-		@map_image = "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=450x450&center=" +
-			@cafe.latitude.to_s + "," + @cafe.longitude.to_s +
-			"&markers=icon:http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%7C" +
-			@cafe.latitude.to_s + "," + @cafe.longitude.to_s
-
 		# Generate a URL for a live Google Map search
 		@google_map_link = "https://www.google.com.au/maps/search/" + @cafe.address
 
@@ -112,7 +106,6 @@ class CafesController < ApplicationController
 		@nearbys = []
 		@cafe.nearbys(1).each do |nearby_cafe|
 			@nearbys <<  { pointer: nearby_cafe, distance: @cafe.distance_to(nearby_cafe) }
-			@map_image += "&markers=olor:blue%7C" + nearby_cafe.latitude.to_s + "," + nearby_cafe.longitude.to_s
 
       @geojson << {
       type: 'Feature',

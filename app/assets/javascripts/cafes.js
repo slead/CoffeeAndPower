@@ -21,7 +21,14 @@ ready = function() {
       success: function(data) {
         var geojson;
         geojson = $.parseJSON(data);
-        jsonLayer = L.geoJson(geojson);
+        jsonLayer = L.geoJson(geojson, {
+          style: function (feature) {
+            return {color: feature.properties.color};
+          },
+          onEachFeature: function (feature, layer) {
+            layer.bindPopup("<a href='/cafes/" + feature.properties.url + "''>" + feature.properties.name + "</a>");
+          }
+        });
         jsonLayer.addTo(leafletMap);
         leafletMap.fitBounds(jsonLayer.getBounds().pad(0.5));
         if (geojson.length < 2) {
