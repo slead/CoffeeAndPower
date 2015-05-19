@@ -44,8 +44,16 @@
         = link_to dislike_cafe_path(@cafe), method: :get, class: "data" do
           %i.fa.fa-thumbs-o-down
         = pluralize(@cafe.get_downvotes.size, "disike")
-      .map
-        = image_tag @map_image
+      #map
+      :javascript
+        $(document).ready(function(){
+          console.log("page load")    
+          var geojson = #{@cafe_geojson.to_json};
+          mapObj.jsonLayer.addData(geojson);
+          console.log('here')
+          mapObj.leafletMap.fitBounds(mapObj.jsonLayer.getBounds());
+          mapObj.leafletMap.setZoom(15);
+        });
       - if @nearbys.count > 0
         .nearbys
           %h4 Nearby cafes

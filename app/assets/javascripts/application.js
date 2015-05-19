@@ -35,10 +35,12 @@ $(document).ready(function() {
   mapObj = {};
   var stamen = new L.StamenTileLayer("toner-lite");
   mapObj.leafletMap = new L.Map("map", {
-        center: new L.LatLng(40.7127837,-74.0059413),
-        zoom: 13,
-        minZoom: 10,
-        maxZoom: 18,
-        layers: [stamen],
-    });
+    center: new L.LatLng(40.7127837,-74.0059413),
+    zoom: 13,
+    // minZoom: 10,
+    // maxZoom: 18,
+    layers: [stamen]
+  });
+  mapObj.jsonLayer = L.geoJson();
+  mapObj.jsonLayer.addTo(mapObj.leafletMap);
 })

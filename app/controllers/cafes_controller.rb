@@ -85,6 +85,24 @@ class CafesController < ApplicationController
 			"&markers=icon:http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%7C" +
 			@cafe.latitude.to_s + "," + @cafe.longitude.to_s
 
+    # Make a JSON object from this and nearby Cafes, to add to the map
+    @cafe_geojson = Array.new
+    @cafe_geojson << {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [@cafe.longitude, @cafe.latitude]
+      },
+      properties: {
+        name: @cafe.name,
+        address: @cafe.address,
+        url: @cafe.slug,
+        :'marker-color' => '#00607d',
+        :'marker-symbol' => 'circle',
+        :'marker-size' => 'medium'
+      }
+    }
+
 		# Generate a URL for a live Google Map search
 		@google_map_link = "https://www.google.com.au/maps/search/" + @cafe.address
 
