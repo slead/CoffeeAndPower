@@ -28,9 +28,8 @@ class CafesController < ApplicationController
     end
 
     # Make a JSON object from the Cafes, to add to the map
-    @geojson = Array.new
-    @cafes.each do |cafe|
-      @geojson << {
+    @geojson = @cafes.collect do |cafe|
+      {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -45,7 +44,8 @@ class CafesController < ApplicationController
           :'marker-size' => 'medium'
         }
       }
-    end
+    end  
+    
     respond_to do |format|
       format.html
       format.json { render json: @geojson }  # respond with the created JSON object
@@ -92,8 +92,7 @@ class CafesController < ApplicationController
 		@google_map_link = "https://www.google.com.au/maps/search/" + @cafe.address
 
     # Make a JSON object from this and nearby Cafes, to add to the map
-    @geojson = Array.new
-    @geojson << {
+    @geojson = [{
       type: 'Feature',
       geometry: {
         type: 'Point',
@@ -107,7 +106,7 @@ class CafesController < ApplicationController
         :'marker-symbol' => 'circle',
         :'marker-size' => 'medium'
       }
-    }
+    }]
 
 		# Find the cafes near this one and add them to the map. Sort them by distance
 		@nearbys = []
