@@ -14,8 +14,11 @@ class CafesController < ApplicationController
       # First, find cafes which match this location
       @location_search_results = Location.search(params[:search])
       if @location_search_results.any?
-        @location = @location_search_results[0]
-        @cafes = Cafe.where(location_id: @location).paginate(:page => params[:page], :per_page => 6)
+        loc_ids = []
+        @location_search_results.each do |loc|
+          loc_ids << loc.id
+        end
+        @cafes = Cafe.where(location_id: loc_ids).paginate(:page => params[:page], :per_page => 6)
       else
         @cafes = Cafe.none.paginate(:page => params[:page], :per_page => 6)
       end
