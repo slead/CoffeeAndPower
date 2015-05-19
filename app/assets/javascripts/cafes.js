@@ -3,11 +3,7 @@ ready = function() {
 
   if ( $("#map").length ) {
     var stamen = new L.StamenTileLayer("toner-lite");
-    leafletMap = new L.Map("map", {
-      center: new L.LatLng(40.7127837,-74.0059413),
-      zoom: 13,
-      layers: [stamen]
-    });
+    leafletMap = new L.Map("map", {layers: [stamen]});
 
     var searchParam = getUrlParameter('search');
     if (searchParam != undefined) {
