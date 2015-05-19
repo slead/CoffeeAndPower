@@ -16,7 +16,8 @@
 //= require_tree .
 //= require leaflet
 
-$(document).ready(function() {
+function pageLoad() {
+  console.log('page load')
   setTimeout(function() {
     $('#notice_wrapper').fadeOut("slow", function() {
       $(this).remove();
@@ -30,7 +31,7 @@ $(document).ready(function() {
     name: "Location",
     remote: "/locations/autocomplete?query=%QUERY"
   });
-})
+}
 
 function getUrlParameter(sParam){
   var sPageURL = window.location.search.substring(1);
@@ -43,5 +44,7 @@ function getUrlParameter(sParam){
           return sParameterName[1];
       }
   }
-  
 }
+
+$(document).ready(pageLoad);
+$(document).on('page:load', pageLoad);
