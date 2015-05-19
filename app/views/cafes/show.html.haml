@@ -44,7 +44,7 @@
         = link_to dislike_cafe_path(@cafe), method: :get, class: "data" do
           %i.fa.fa-thumbs-o-down
         = pluralize(@cafe.get_downvotes.size, "disike")
-      #map
+      #map.minimap
 
       - if @nearbys.count > 0
         .nearbys

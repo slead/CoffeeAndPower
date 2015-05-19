@@ -88,14 +88,6 @@ class CafesController < ApplicationController
 		# Generate a URL for a live Google Map search
 		@google_map_link = "https://www.google.com.au/maps/search/" + @cafe.address
 
-		# Find the cafes near this one and add them to the map. Sort them by distance
-		@nearbys = []
-		@cafe.nearbys(1).each do |nearby_cafe|
-			@nearbys <<  { pointer: nearby_cafe, distance: @cafe.distance_to(nearby_cafe) }
-			@map_image += "&markers=olor:blue%7C" + nearby_cafe.latitude.to_s + "," + nearby_cafe.longitude.to_s
-		end
-		@nearbys.sort_by {|_key, value| value}
-
     # Make a JSON object from this and nearby Cafes, to add to the map
     @geojson = Array.new
     @geojson << {
@@ -113,6 +105,30 @@ class CafesController < ApplicationController
         :'marker-size' => 'medium'
       }
     }
+
+		# Find the cafes near this one and add them to the map. Sort them by distance
+		@nearbys = []
+		@cafe.nearbys(1).each do |nearby_cafe|
+			@nearbys <<  { pointer: nearby_cafe, distance: @cafe.distance_to(nearby_cafe) }
+			@map_image += "&markers=olor:blue%7C" + nearby_cafe.latitude.to_s + "," + nearby_cafe.longitude.to_s
+
+      @geojson << {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [nearby_cafe.longitude, nearby_cafe.latitude]
+      },
+      properties: {
+        name: nearby_cafe.name,
+        address: nearby_cafe.address,
+        url: nearby_cafe.slug,
+        :'marker-color' => '#e9e9e9',
+        :'marker-symbol' => 'circle',
+        :'marker-size' => 'small'
+      }
+    }
+		end
+		@nearbys.sort_by {|_key, value| value}
 
     respond_to do |format|
       format.html
