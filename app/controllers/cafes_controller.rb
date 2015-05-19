@@ -117,9 +117,9 @@ class CafesController < ApplicationController
         name: nearby_cafe.name,
         address: nearby_cafe.address,
         url: nearby_cafe.slug,
-        :'marker-color' => '#e9e9e9',
-        :'marker-symbol' => 'circle',
-        :'marker-size' => 'small'
+        color: '#e9e9e9',
+        symbol: 'circle',
+        size: 'small'
       }
     }
 		end
