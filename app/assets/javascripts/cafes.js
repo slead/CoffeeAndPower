@@ -6,8 +6,12 @@ ready = function() {
     leafletMap = new L.Map("map", {layers: [stamen]});
 
     var searchParam = getUrlParameter('search');
+    var pageParam = getUrlParameter('page');
     if (searchParam != undefined) {
       url = 'cafes.json?search=' + searchParam;
+      if (pageParam != undefined) {
+        url += "&page=" + pageParam;
+      }
     } else {
       url = window.location.pathname + '.json';
     }
@@ -15,7 +19,6 @@ ready = function() {
       dataType: 'text',
       url: url,
       success: function(data) {
-        console.log("AJAX success")
         var geojson;
         geojson = $.parseJSON(data);
         jsonLayer = L.geoJson(geojson);

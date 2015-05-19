@@ -17,7 +17,6 @@
 //= require leaflet
 
 function pageLoad() {
-  console.log('page load')
   setTimeout(function() {
     $('#notice_wrapper').fadeOut("slow", function() {
       $(this).remove();
