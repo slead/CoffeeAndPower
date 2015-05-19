@@ -10,6 +10,7 @@ class CafesController < ApplicationController
   utf8_enforcer_workaround
 
 	def index
+    byebug
     if params[:search].present?
       # First, find cafes which match this location
       @location_search_results = Location.search(params[:search])
@@ -86,8 +87,8 @@ class CafesController < ApplicationController
 			@cafe.latitude.to_s + "," + @cafe.longitude.to_s
 
     # Make a JSON object from this and nearby Cafes, to add to the map
-    @cafe_geojson = Array.new
-    @cafe_geojson << {
+    @geojson = Array.new
+    @geojson << {
       type: 'Feature',
       geometry: {
         type: 'Point',

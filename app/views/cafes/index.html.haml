@@ -8,10 +8,7 @@
     - if @cafes.any?
       :javascript
         $(document).ready(function(){
-          $("#map").show();       
-          var geojson = #{@geojson.to_json};
-          mapObj.jsonLayer.addData(geojson);
-          mapObj.leafletMap.fitBounds(mapObj.jsonLayer.getBounds().pad(0.5));
+          $("#map").show();
         });
     - else
       :javascript
