@@ -10,7 +10,16 @@
         $(document).ready(function(){
           $("#map").show();       
           var geojson = #{@geojson.to_json};
-          mapObj.jsonLayer.addData(geojson);
+          mapObj.jsonLayer = L.geoJson(geojson, {
+            style: function (feature) {
+              return {color: feature.properties.color};
+            },
+            onEachFeature: function (feature, layer) {
+              console.log(feature);
+              layer.bindPopup("<a href='cafes/" + feature.properties.url + "'>" + feature.properties.name + "</a>");
+            }
+          });
+          mapObj.jsonLayer.addTo(mapObj.leafletMap);
           mapObj.leafletMap.fitBounds(mapObj.jsonLayer.getBounds());
         });
     - else

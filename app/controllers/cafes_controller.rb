@@ -36,6 +36,7 @@ class CafesController < ApplicationController
         properties: {
           name: cafe.name,
           address: cafe.address,
+          url: cafe.slug,
           :'marker-color' => '#00607d',
           :'marker-symbol' => 'circle',
           :'marker-size' => 'medium'
