@@ -13,10 +13,21 @@ ready = function() {
     success: function(data) {
       var geojson;
       geojson = $.parseJSON(data);
-      mapObj.jsonLayer.addData(geojson);
-      mapObj.leafletMap.fitBounds(mapObj.jsonLayer.getBounds().pad(0.5));
+      // Create the Leaflet map
+      var stamen = new L.StamenTileLayer("toner-lite");
+      leafletMap = new L.Map("map", {
+        center: new L.LatLng(40.7127837,-74.0059413),
+        zoom: 13,
+        // minZoom: 10,
+        // maxZoom: 18,
+        layers: [stamen]
+      });
+
+      jsonLayer = L.geoJson(geojson);
+      jsonLayer.addTo(leafletMap);
+      leafletMap.fitBounds(jsonLayer.getBounds().pad(0.5));
       if (geojson.length < 2) {
-        mapObj.leafletMap.setZoom(15);
+        leafletMap.setZoom(15);
       }
     },
     error: function() {
