@@ -27,7 +27,8 @@ class CafesController < ApplicationController
         end
         @cafes = Cafe.where(location_id: loc_ids).paginate(:page => params[:page], :per_page => 6)
       else
-        @cafes = Cafe.none.paginate(:page => params[:page], :per_page => 6)
+        # If there are no matching Locations, perform a spatial search based on the entered location
+        @cafes = Cafe.near(params[:search], 5).paginate(:page => params[:page], :per_page => 6)
       end
 
     else
