@@ -10,6 +10,8 @@ class CafesController < ApplicationController
   utf8_enforcer_workaround
 
 	def index
+
+    @geojson = Array.new
     if params[:bbox].present?
       
       #Find cafes which fall within the current map extent
@@ -28,7 +30,22 @@ class CafesController < ApplicationController
         @cafes = Cafe.where(location_id: loc_ids).paginate(:page => params[:page], :per_page => 6)
       else
         # If there are no matching Locations, perform a spatial search based on the entered location
-        @cafes = Cafe.near(params[:search], 5).paginate(:page => params[:page], :per_page => 6)
+        search_location = Geocoder.coordinates(params[:search])
+        @geojson += [{
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [search_location[1], search_location[0]]
+          },
+          properties: {
+            type: "location",
+            name: params[:search],
+            color: '#00607d',
+            symbol: 'circle',
+            size: 'small'
+          }
+        }]
+        @cafes = Cafe.near(search_location, 10).paginate(:page => params[:page], :per_page => 6)
       end
 
     else
@@ -36,7 +53,7 @@ class CafesController < ApplicationController
     end
 
     # Make a JSON object from the Cafes, to add to the map
-    @geojson = @cafes.collect do |cafe|
+    @geojson += @cafes.collect do |cafe|
       {
         type: 'Feature',
         geometry: {
@@ -44,6 +61,7 @@ class CafesController < ApplicationController
           coordinates: [cafe.longitude, cafe.latitude]
         },
         properties: {
+          type: "cafe",
           name: cafe.name,
           address: cafe.address,
           url: cafe.slug,
@@ -101,6 +119,7 @@ class CafesController < ApplicationController
         coordinates: [@cafe.longitude, @cafe.latitude]
       },
       properties: {
+        type: "cafe",
         name: @cafe.name,
         address: @cafe.address,
         url: @cafe.slug,
@@ -122,6 +141,7 @@ class CafesController < ApplicationController
         coordinates: [nearby_cafe.longitude, nearby_cafe.latitude]
       },
       properties: {
+        type: "nearby_cafe",
         name: nearby_cafe.name,
         address: nearby_cafe.address,
         url: nearby_cafe.slug,

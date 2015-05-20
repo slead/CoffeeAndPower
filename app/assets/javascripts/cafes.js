@@ -26,7 +26,9 @@ ready = function() {
             return {color: feature.properties.color};
           },
           onEachFeature: function (feature, layer) {
-            layer.bindPopup("<a href='/cafes/" + feature.properties.url + "''>" + feature.properties.name + "</a>");
+            if(feature.properties.url != undefined) {
+              layer.bindPopup("<a href='/cafes/" + feature.properties.url + "''>" + feature.properties.name + "</a>");
+            }
           }
         });
         jsonLayer.addTo(leafletMap);
