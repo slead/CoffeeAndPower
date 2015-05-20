@@ -39,7 +39,7 @@ class CafesController < ApplicationController
           },
           properties: {
             type: "location",
-            name: params[:search],
+            name: params[:search].capitalize,
             color: '#00607d',
             symbol: 'circle',
             size: 'small'
