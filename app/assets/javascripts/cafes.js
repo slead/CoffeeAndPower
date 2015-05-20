@@ -39,6 +39,38 @@ ready = function() {
         console.log("Error");
       }
     });
+
+    leafletMap.on('moveend', function(e) {
+      mapSearch(leafletMap.getBounds());
+    });
+  }
+
+  function mapSearch(extent) {
+    var northEast = extent._northEast;
+    var southWest = extent._southWest;
+    console.log(northEast.lat, northEast.lng, southWest.lat, southWest.lng);
+    url = "cafes.json?bbox=" + southWest.lat + "," + southWest.lng + "," + northEast.lat + "," + northEast.lng
+    console.log(url)
+    $.ajax({
+      dataType: 'text',
+      url: url,
+      success: function(data) {
+        var geojson;
+        geojson = $.parseJSON(data);
+        jsonLayer = L.geoJson(geojson, {
+          style: function (feature) {
+            return {color: feature.properties.color};
+          },
+          onEachFeature: function (feature, layer) {
+            layer.bindPopup("<a href='/cafes/" + feature.properties.url + "''>" + feature.properties.name + "</a>");
+          }
+        });
+        jsonLayer.addTo(leafletMap);
+      },
+      error: function() {
+        console.log("Error");
+      }
+    });
   }
 };
 

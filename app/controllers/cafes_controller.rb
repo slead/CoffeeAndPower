@@ -10,8 +10,15 @@ class CafesController < ApplicationController
   utf8_enforcer_workaround
 
 	def index
-    if params[:search].present?
-      # First, find cafes which match this location
+    if params[:bbox].present?
+      
+      #Find cafes which fall within the current map extent
+      bbox = params[:bbox].split(",").map(&:to_f)
+      @cafes = Cafe.within_bounding_box(bbox).paginate(:page => params[:page], :per_page => 6)
+
+    elsif params[:search].present?
+      
+      # Find cafes which match this location
       @location_search_results = Location.search(params[:search])
       if @location_search_results.any?
         loc_ids = []
@@ -39,9 +46,9 @@ class CafesController < ApplicationController
           name: cafe.name,
           address: cafe.address,
           url: cafe.slug,
-          :'marker-color' => '#00607d',
-          :'marker-symbol' => 'circle',
-          :'marker-size' => 'medium'
+          color: '#00607d',
+          symbol: 'circle',
+          size: 'medium'
         }
       }
     end  
@@ -96,9 +103,9 @@ class CafesController < ApplicationController
         name: @cafe.name,
         address: @cafe.address,
         url: @cafe.slug,
-        :'marker-color' => '#00607d',
-        :'marker-symbol' => 'circle',
-        :'marker-size' => 'medium'
+        color: '#00607d',
+        symbol: 'circle',
+        size: 'medium'
       }
     }]
 
