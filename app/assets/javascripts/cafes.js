@@ -48,9 +48,7 @@ ready = function() {
   function mapSearch(extent) {
     var northEast = extent._northEast;
     var southWest = extent._southWest;
-    console.log(northEast.lat, northEast.lng, southWest.lat, southWest.lng);
     url = "cafes.json?bbox=" + southWest.lat + "," + southWest.lng + "," + northEast.lat + "," + northEast.lng
-    console.log(url)
     $.ajax({
       dataType: 'text',
       url: url,
@@ -66,6 +64,7 @@ ready = function() {
           }
         });
         jsonLayer.addTo(leafletMap);
+        console.log(geojson.length);
       },
       error: function() {
         console.log("Error");
