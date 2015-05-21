@@ -10,72 +10,67 @@ class CafesController < ApplicationController
   utf8_enforcer_workaround
 
 	def index
+    @cafes = Cafe.all.paginate(:page => params[:page], :per_page => 6)
 
     @geojson = Array.new
     if params[:bbox].present?
-      
       #Find cafes which fall within the current map extent
       bbox = params[:bbox].split(",").map(&:to_f)
       @cafes = Cafe.within_bounding_box(bbox).paginate(:page => params[:page], :per_page => 6)
 
-    elsif params[:search].present?
-      
-      # Find cafes which match this location
-      @location_search_results = Location.search(params[:search])
-      if @location_search_results.any?
-        loc_ids = []
-        @location_search_results.each do |loc|
-          loc_ids << loc.id
-        end
-        @cafes = Cafe.where(location_id: loc_ids).paginate(:page => params[:page], :per_page => 6)
-      else
-        # If there are no matching Locations, perform a spatial search based on the entered location
-        search_location = Geocoder.coordinates(params[:search])
-        @geojson += [{
+      # Make a JSON object from the Cafes, to add to the map
+      @geojson += @cafes.collect do |cafe|
+        {
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: [search_location[1], search_location[0]]
+            coordinates: [cafe.longitude, cafe.latitude]
           },
           properties: {
-            type: "location",
-            name: params[:search].capitalize,
+            type: "cafe",
+            name: cafe.name,
+            address: cafe.address,
+            url: cafe.slug,
             color: '#00607d',
             symbol: 'circle',
-            size: 'small'
+            size: 'medium'
           }
-        }]
-        @cafes = Cafe.near(search_location, 10).paginate(:page => params[:page], :per_page => 6)
+        }
+      end       
+
+    elsif params[:search].present?
+      # Send back the location coordinates
+      @location_search_results = Location.search(params[:search])
+      if @location_search_results.any?
+        @location = @location_search_results[0]
+        search_location = [@location.latitude,@location.longitude]
+      else
+        # If there are no matching Locations, perform a spatial search based on the entered location
+        search_location = Geocoder.coordinates(params[:search])
       end
 
-    else
-      @cafes = Cafe.all.order("CREATED_AT").paginate(:page => params[:page], :per_page => 6)
-    end
-
-    # Make a JSON object from the Cafes, to add to the map
-    @geojson += @cafes.collect do |cafe|
-      {
+      @geojson = [{
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [cafe.longitude, cafe.latitude]
+          coordinates: search_location
         },
         properties: {
-          type: "cafe",
-          name: cafe.name,
-          address: cafe.address,
-          url: cafe.slug,
+          type: "location",
+          name: @location.name,
           color: '#00607d',
           symbol: 'circle',
           size: 'medium'
         }
-      }
-    end  
+      }]
+      puts @geojson
+    end
     
     respond_to do |format|
       format.html
       format.json { render json: @geojson }  # respond with the created JSON object
     end
+    
 	end
 
 	def new

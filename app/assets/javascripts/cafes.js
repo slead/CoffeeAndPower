@@ -1,14 +1,14 @@
 var ready;
 ready = function() {
 
-  console.log('ready');
-  var viewReset;
-
   if ( $("#map").length ) {
     var stamen = new L.StamenTileLayer("toner-lite");
-    leafletMap = new L.Map("map", {layers: [stamen]});
-    leafletMap.off('viewreset', updateCafes);
-
+    leafletMap = new L.Map("map", {
+      center: [40.7127837, -74.0059413],
+      zoom: 12,
+      layers: [stamen]
+    });    
+    
     var geojsonMarkerOptions = {
       radius: 8,
       fillColor: "#ed9c28",
@@ -28,25 +28,17 @@ ready = function() {
     } else {
       url = window.location.pathname + '.json';
     }
+    mapSearch;
+    leafletMap.on('moveend', mapSearch);
 
-    doAjax(url);
-    leafletMap.on('moveend', updateCafes);
   }
 
-  function updateCafes(e) {
-    mapSearch(leafletMap.getBounds());    
-  }
-
-  function mapSearch(extent) {
+  function mapSearch() {
     console.log("Map search")
+    extent = leafletMap.getBounds();
     var northEast = extent._northEast;
     var southWest = extent._southWest;
     url = "cafes.json?bbox=" + southWest.lat + "," + southWest.lng + "," + northEast.lat + "," + northEast.lng
-    doAjax(url);
-  }
-
-  function doAjax(url) {
-    console.log("ajax")
     console.log(url)
     $.ajax({
       dataType: 'text',
@@ -68,11 +60,8 @@ ready = function() {
             }
           }
         });
+        jsonLayer = L.geoJson();
         jsonLayer.addTo(leafletMap);
-        // leafletMap.fitBounds(jsonLayer.getBounds().pad(0.5));
-        // if (geojson.length < 2) {
-        //   leafletMap.setZoom(15);
-        // }
       },
       error: function() {
         console.log("Error");

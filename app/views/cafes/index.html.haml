@@ -5,14 +5,14 @@
 
   .row
     #map.fullmap
-    - if @cafes.any?
-      :javascript
-        $(document).ready(function(){
-          $("#map").show();
-        });
-    - else
-      :javascript
-        $("#map").hide();
+  /   - if @cafes.any?
+  /     :javascript
+  /       $(document).ready(function(){
+  /         $("#map").show();
+  /       });
+  /   - else
+  /     :javascript
+  /       $("#map").hide();
 
   #results.row
     - if @cafes.any?
