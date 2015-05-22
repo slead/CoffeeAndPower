@@ -5,37 +5,30 @@
 
   .row
     #map.fullmap
-  /   - if @cafes.any?
-  /     :javascript
-  /       $(document).ready(function(){
-  /         $("#map").show();
-  /       });
-  /   - else
-  /     :javascript
-  /       $("#map").hide();
 
   #results.row
-    - if @cafes.any?
-      - @cafes.in_groups_of(3, false).each_with_index do |group|
-        .row
-          - group.each do |cafe|
-            .col-md-4.cafe_content
-              .name
-                %h2= link_to truncate(cafe.name, length: 18), cafe
-              .address
-                %h4= truncate(cafe.address, lenth: 80)
-              .data.clearfix
-              %p.summary
-                = truncate(cafe.description, length: 200)
-              %p.social
-                %span
-                  %i.fa.fa-thumbs-o-up
-                    = cafe.get_likes.size
-                %span
-                  %i.fa.fa-thumbs-o-down
-                    = cafe.get_dislikes.size
-    - else
-      %h1 No cafes found!
-      %p
-        Would you like to 
-        =link_to "add a cafe?", new_cafe_path
+    / - puts "here"
+    / - if @cafes.any?
+    /   - @cafes.in_groups_of(3, false).each_with_index do |group|
+    /     .row
+    /       - group.each do |cafe|
+    /         .col-md-4.cafe_content
+    /           .name
+    /             %h2= link_to truncate(cafe.name, length: 18), cafe
+    /           .address
+    /             %h4= truncate(cafe.address, lenth: 80)
+    /           .data.clearfix
+    /           %p.summary
+    /             = truncate(cafe.description, length: 200)
+    /           %p.social
+    /             %span
+    /               %i.fa.fa-thumbs-o-up
+    /                 = cafe.get_likes.size
+    /             %span
+    /               %i.fa.fa-thumbs-o-down
+    /                 = cafe.get_dislikes.size
+    / - else
+    /   %h1 No cafes found!
+    /   %p
+    /     Would you like to 
+    /     =link_to "add a cafe?", new_cafe_path

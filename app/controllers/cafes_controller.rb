@@ -10,62 +10,33 @@ class CafesController < ApplicationController
   utf8_enforcer_workaround
 
 	def index
-    @cafes = Cafe.all.paginate(:page => params[:page], :per_page => 6)
-
+    
     @geojson = Array.new
     if params[:bbox].present?
       #Find cafes which fall within the current map extent
       bbox = params[:bbox].split(",").map(&:to_f)
       @cafes = Cafe.within_bounding_box(bbox).paginate(:page => params[:page], :per_page => 6)
+    else
+      @cafes = Cafe.all.paginate(:page => params[:page], :per_page => 6)   
+    end
 
-      # Make a JSON object from the Cafes, to add to the map
-      @geojson += @cafes.collect do |cafe|
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [cafe.longitude, cafe.latitude]
-          },
-          properties: {
-            type: "cafe",
-            name: cafe.name,
-            address: cafe.address,
-            url: cafe.slug,
-            color: '#00607d',
-            symbol: 'circle',
-            size: 'medium'
-          }
-        }
-      end       
-
-    elsif params[:search].present?
-      # Send back the location coordinates
-      @location_search_results = Location.search(params[:search])
-      if @location_search_results.any?
-        @location = @location_search_results[0]
-        search_location = [@location.latitude,@location.longitude]
-      else
-        # If there are no matching Locations, perform a spatial search based on the entered location
-        search_location = Geocoder.coordinates(params[:search])
-      end
-
-      @geojson = [{
+    # Make a JSON object from the Cafes, to add to the map
+    @geojson += @cafes.collect do |cafe|
+      {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: search_location
+          coordinates: [cafe.longitude, cafe.latitude]
         },
         properties: {
-          type: "location",
-          name: @location.name,
-          color: '#00607d',
-          symbol: 'circle',
-          size: 'medium'
+          name: cafe.name,
+          address: cafe.address,
+          url: cafe.slug,
+          description: cafe.description
         }
-      }]
-      puts @geojson
+      }
     end
-    
+
     respond_to do |format|
       format.html
       format.json { render json: @geojson }  # respond with the created JSON object
