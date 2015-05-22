@@ -7,13 +7,6 @@ Rails.application.routes.draw do
       get "dislike", to: "cafes#downvote"
     end
   end
-
-  resources :locations, only: :index do
-    collection do
-      # post :import
-      get :autocomplete
-    end
-  end
   
   root 'homepage#index'
 end

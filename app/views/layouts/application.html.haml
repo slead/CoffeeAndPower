@@ -29,8 +29,4 @@
             %span.close{type: "button", data: {dismiss:"alert"}}
               %i.fa.fa-times
       =yield
-  - if @cafes
-    #footer
-      .container
-        .row.paginate
-          = will_paginate @cafes, renderer: BootstrapPagination::Rails
+      

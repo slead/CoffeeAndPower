@@ -39,9 +39,14 @@ ready = function() {
     console.log("Map search")
 
     extent = leafletMap.getBounds();
-    var northEast = extent._northEast;
-    var southWest = extent._southWest;
-    url = "cafes.json?bbox=" + southWest.lat + "," + southWest.lng + "," + northEast.lat + "," + northEast.lng
+    var northEastLat = extent._northEast.lat;
+    var northEastLng = extent._northEast.lng;
+    var southWestLat = extent._southWest.lat;
+    var southWestLng = extent._southWest.lng;
+    // if (northEastLng < -180) {northEastLng += 360;}
+    // if (southWestLng < -180) {southWestLng += 360;}
+
+    url = "cafes.json?bbox=" + southWestLat + "," + southWestLng + "," + northEastLat + "," + northEastLng
     $.ajax({
       dataType: 'text',
       url: url,
@@ -74,7 +79,7 @@ ready = function() {
           }
           cafe = geojson[idx].properties;
           html += "<div class='col-md-4 cafe_content'>";
-          html += "<div class='name'><h2><a href=" + cafe.url + ">" + cafe.name + "</a></h2></div>";
+          html += "<div class='name'><h2><a href=cafes/" + cafe.url + ">" + cafe.name + "</a></h2></div>";
           html += "<div class='address'><h4>" + cafe.address + "</h4></div>";
           html += "<div class='summary'><p>" + cafe.description + "</p></div>";
           html += "</div>";

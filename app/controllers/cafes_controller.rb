@@ -10,14 +10,14 @@ class CafesController < ApplicationController
   utf8_enforcer_workaround
 
 	def index
-    
+
     @geojson = Array.new
     if params[:bbox].present?
       #Find cafes which fall within the current map extent
       bbox = params[:bbox].split(",").map(&:to_f)
-      @cafes = Cafe.within_bounding_box(bbox).paginate(:page => params[:page], :per_page => 6)
+      @cafes = Cafe.within_bounding_box(bbox)
     else
-      @cafes = Cafe.all.paginate(:page => params[:page], :per_page => 6)   
+      @cafes = Cafe.all  
     end
 
     # Make a JSON object from the Cafes, to add to the map
@@ -52,14 +52,11 @@ class CafesController < ApplicationController
 		@cafe = current_user.cafes.build(cafe_params)
 		@cafe.username = current_user.name
 		if @cafe.save
-			flash[:notice] = "Cafe #{@cafe.name} added successfully."
-
-      if @cafe.geocoded?
-        update_location
-      else
+      if ! @cafe.geocoded?
         flash[:alert] = "There was a problem geocoding cafe #{@cafe.name}."
+      else
+        flash[:notice] = "Cafe #{@cafe.name} added successfully."
       end
-
 			redirect_to @cafe
 		else
       errors = []
@@ -131,10 +128,10 @@ class CafesController < ApplicationController
 
 	def update
 		if @cafe.update(cafe_params)
-      if @cafe.geocoded?
-        update_location
-      else
+      if !@cafe.geocoded?
         flash[:alert] = "There was a problem geocoding cafe #{@cafe.name}."
+      else
+        flash[:alert] = "Cafe #{@cafe.name} was successfully updated."
       end
 			redirect_to @cafe
 		else
@@ -169,23 +166,4 @@ class CafesController < ApplicationController
 		@cafe = Cafe.friendly.find(params[:id])
 	end
 
-  #Locations are basically cities/suburbs where we have at least one cafe
-  def update_location
-    @location = Location.where(name: @cafe.city)
-    # If there is an existing location, relate it to the cafe
-    if @location.any?
-      @cafe.location_id = @location.take.id
-    # Otherwise, geocode a new location based on this cafe's name, state & country
-    else
-      @location = Location.new(name: @cafe.city)
-      @location.state = @cafe.state
-      @location.country = @cafe.country
-      xy = Geocoder.coordinates(@location.name.to_s + "," + @location.state.to_s + "," + @location.country)
-      @location.latitude = xy[0]
-      @location.longitude = xy[1]
-      @location.save
-      @cafe.location_id = @location.id
-    end
-    @cafe.save
-  end
 end
