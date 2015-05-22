@@ -2,11 +2,13 @@ var ready;
 ready = function() {
 
   if ( $("#map").length ) {
+
     var stamen = new L.StamenTileLayer("toner-lite");
     leafletMap = new L.Map("map", {
       center: [40.7127837, -74.0059413],
       zoom: 12,
-      layers: [stamen]
+      layers: [stamen],
+      maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
     });
     mapSearch();
     
@@ -36,17 +38,13 @@ ready = function() {
 
   function mapSearch() {
     // Request cafes within the current map extent
-    console.log("Map search")
 
     extent = leafletMap.getBounds();
-    var northEastLat = extent._northEast.lat;
-    var northEastLng = extent._northEast.lng;
-    var southWestLat = extent._southWest.lat;
-    var southWestLng = extent._southWest.lng;
-    // if (northEastLng < -180) {northEastLng += 360;}
-    // if (southWestLng < -180) {southWestLng += 360;}
+    var northEast = extent._northEast.wrap();
+    var southWest = extent._southWest.wrap();
 
-    url = "cafes.json?bbox=" + southWestLat + "," + southWestLng + "," + northEastLat + "," + northEastLng
+    url = "cafes.json?bbox=" + southWest.lat + "," + southWest.lng + "," + northEast.lat + "," + northEast.lng;
+    console.log(url);
     $.ajax({
       dataType: 'text',
       url: url,
@@ -87,7 +85,6 @@ ready = function() {
             html += "</div>"
           }
         }
-        console.log(html)
         $("#results").html(html);
   
       },
