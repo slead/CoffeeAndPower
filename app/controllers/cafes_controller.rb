@@ -29,6 +29,7 @@ class CafesController < ApplicationController
           coordinates: [cafe.longitude, cafe.latitude]
         },
         properties: {
+          type: "cafe",
           name: cafe.name,
           address: cafe.address,
           url: cafe.slug,
@@ -85,10 +86,7 @@ class CafesController < ApplicationController
         type: "cafe",
         name: @cafe.name,
         address: @cafe.address,
-        url: @cafe.slug,
-        color: '#00607d',
-        symbol: 'circle',
-        size: 'medium'
+        url: @cafe.slug
       }
     }]
 
@@ -107,10 +105,7 @@ class CafesController < ApplicationController
         type: "nearby_cafe",
         name: nearby_cafe.name,
         address: nearby_cafe.address,
-        url: nearby_cafe.slug,
-        color: '#e9e9e9',
-        symbol: 'circle',
-        size: 'small'
+        url: nearby_cafe.slug
       }
     }
 		end

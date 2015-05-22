@@ -7,6 +7,7 @@ ready = function() {
     leafletMap = new L.Map("map", {
       center: [40.7127837, -74.0059413],
       zoom: 12,
+      minZoom: 11,
       layers: [stamen],
       maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
     });
