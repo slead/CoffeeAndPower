@@ -1,9 +1,19 @@
 var ready;
 ready = function() {
 
+  var stamen = new L.StamenTileLayer("toner-lite");
+  var geojsonMarkerOptions = {
+    radius: 8,
+    fillColor: "#ed9c28",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+  };
+
+  // Initialise the map for the Index page
   if ( $("#map").length ) {
 
-    var stamen = new L.StamenTileLayer("toner-lite");
     leafletMap = new L.Map("map", {
       center: [40.7127837, -74.0059413],
       zoom: 12,
@@ -11,29 +21,24 @@ ready = function() {
       layers: [stamen],
       maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
     });
-    mapSearch();
-    
-    var geojsonMarkerOptions = {
-      radius: 8,
-      fillColor: "#ed9c28",
-      color: "#000",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
-    };
 
-    // var searchParam = getUrlParameter('search');
-    // var pageParam = getUrlParameter('page');
-    // if (searchParam != undefined) {
-    //   url = 'cafes.json?search=' + searchParam;
-    //   if (pageParam != undefined) {
-    //     url += "&page=" + pageParam;
-    //   }
-    // } else {
-    //   url = window.location.pathname + '.json';
-    // }
-    mapSearch;
+    // Fetch the cafes within  the current map extent, and re-fetch them when it changes
+    mapSearch();
     leafletMap.on('moveend', mapSearch);
+
+    // Initialise the map for the Show page
+  } else if ( $("#minimap").length ) {
+
+    leafletMap = new L.Map("minimap", {
+      center: [40.7127837, -74.0059413],
+      zoom: 12,
+      minZoom: 11,
+      layers: [stamen],
+      maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
+    });
+
+    // TODO: get the opening extent somehow, and restrict the map to this area. Fetch the cafes
+    // and nearby cafes
 
   }
 
@@ -45,7 +50,6 @@ ready = function() {
     var southWest = extent._southWest.wrap();
 
     url = "cafes.json?bbox=" + southWest.lat + "," + southWest.lng + "," + northEast.lat + "," + northEast.lng;
-    console.log(url);
     $.ajax({
       dataType: 'text',
       url: url,
