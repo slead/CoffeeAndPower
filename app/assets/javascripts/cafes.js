@@ -45,13 +45,16 @@ ready = function() {
           center: [centroid[1], centroid[0]],
           zoom: 12,
           minZoom: 11,
-          layers: [stamen],
-          maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
+          layers: [stamen]
         });
+        leafletMap.setMaxBounds(leafletMap.getBounds());
 
         // Add the cafe and its neighbours to the map
         jsonLayer = L.geoJson(geojson, {
           pointToLayer: function (feature, latlng) {
+            if (feature.properties.type && feature.properties.type == "nearby_cafe") {
+              geojsonMarkerOptions.fillColor = "#727272";
+            }
             return L.circleMarker(latlng, geojsonMarkerOptions);
           },
           onEachFeature: function (feature, layer) {
