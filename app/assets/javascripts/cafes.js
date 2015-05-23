@@ -29,16 +29,47 @@ ready = function() {
     // Initialise the map for the Show page
   } else if ( $("#minimap").length ) {
 
-    leafletMap = new L.Map("minimap", {
-      center: [40.7127837, -74.0059413],
-      zoom: 12,
-      minZoom: 11,
-      layers: [stamen],
-      maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
-    });
+    // the AJAX call is to the cafe name + .json
+    url = window.location.pathname + '.json';
 
-    // TODO: get the opening extent somehow, and restrict the map to this area. Fetch the cafes
-    // and nearby cafes
+    $.ajax({
+      dataType: 'text',
+      url: url,
+      success: function(data) {
+        var geojson;
+        geojson = $.parseJSON(data);
+
+        // The results contain this cafe plus any nearby cafes. Centre the map on this cafe
+        var centroid = geojson[0].geometry.coordinates;
+        leafletMap = new L.Map("minimap", {
+          center: [centroid[1], centroid[0]],
+          zoom: 12,
+          minZoom: 11,
+          layers: [stamen],
+          maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
+        });
+
+        // Add the cafe and its neighbours to the map
+        jsonLayer = L.geoJson(geojson, {
+          pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+          },
+          onEachFeature: function (feature, layer) {
+            if(feature.properties.name != undefined) {
+              if(feature.properties.url != undefined) {
+                layer.bindPopup("<a href='/cafes/" + feature.properties.url + "''>" + feature.properties.name + "</a>");
+              } else {
+                layer.bindPopup(feature.properties.name);
+              }
+            }
+          }
+        });
+        jsonLayer.addTo(leafletMap);
+
+      }, error: function() {
+        console.log("Error with Show map");
+      }
+    });
 
   }
 
@@ -94,7 +125,7 @@ ready = function() {
   
       },
       error: function() {
-        console.log("Error");
+        console.log("Error with Index map");
       }
     });
   }

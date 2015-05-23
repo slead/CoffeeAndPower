@@ -75,46 +75,47 @@ class CafesController < ApplicationController
 		# Generate a URL for a live Google Map search
 		@google_map_link = "https://www.google.com.au/maps/search/" + @cafe.address
 
-    # # Make a JSON object from this and nearby Cafes, to add to the map
-    # @geojson = [{
-    #   type: 'Feature',
-    #   geometry: {
-    #     type: 'Point',
-    #     coordinates: [@cafe.longitude, @cafe.latitude]
-    #   },
-    #   properties: {
-    #     type: "cafe",
-    #     name: @cafe.name,
-    #     address: @cafe.address,
-    #     url: @cafe.slug
-    #   }
-    # }]
+    # Make a JSON object from this and nearby Cafes, to add to the map
+    @geojson = [{
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [@cafe.longitude, @cafe.latitude]
+      },
+      properties: {
+        type: "cafe",
+        name: @cafe.name,
+        address: @cafe.address,
+        url: @cafe.slug
+      }
+    }]
 
 		# Find the cafes near this one and add them to the map. Sort them by distance
 		@nearbys = []
-		@cafe.nearbys(1).each do |nearby_cafe|
+		@cafe.nearbys(2).each do |nearby_cafe|
 			@nearbys <<  { pointer: nearby_cafe, distance: @cafe.distance_to(nearby_cafe) }
+      puts "Nearby: #{nearby_cafe.name}"
 
-      # @geojson << {
-      # type: 'Feature',
-      # geometry: {
-      #   type: 'Point',
-      #   coordinates: [nearby_cafe.longitude, nearby_cafe.latitude]
-      # },
-      # properties: {
-      #   type: "nearby_cafe",
-      #   name: nearby_cafe.name,
-      #   address: nearby_cafe.address,
-      #   url: nearby_cafe.slug
-      # }
-    # }
+      @geojson << {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [nearby_cafe.longitude, nearby_cafe.latitude]
+      },
+      properties: {
+        type: "nearby_cafe",
+        name: nearby_cafe.name,
+        address: nearby_cafe.address,
+        url: nearby_cafe.slug
+      }
+    }
 		end
 		@nearbys.sort_by {|_key, value| value}
 
-    # respond_to do |format|
-    #   format.html
-    #   format.json { render json: @geojson }  # respond with the created JSON object
-    # end
+    respond_to do |format|
+      format.html
+      format.json { render json: @geojson }  # respond with the created JSON object
+    end
 
 	end
 
