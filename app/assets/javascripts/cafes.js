@@ -15,8 +15,8 @@ ready = function() {
   if ( $("#map").length ) {
 
     leafletMap = new L.Map("map", {
-      center: [40.7127837, -74.0059413],
-      zoom: 12,
+      center: [40.736592006730966, -73.98845672607422],
+      zoom: 14,
       minZoom: 11,
       layers: [stamen],
       maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
