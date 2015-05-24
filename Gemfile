@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.7'
-gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -11,6 +10,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 group :development do
   gem 'spring', '~> 1.3.6'
   gem 'byebug', '~> 4.0.5'
+  gem 'sqlite3'
 end
 gem 'haml', '~> 4.0.6'
 gem 'simple_form', '~> 3.1.0'
@@ -24,3 +24,8 @@ gem 'will_paginate-bootstrap', '~> 1.0.1'
 gem 'utf8_enforcer_workaround', '~> 1.1.0'
 gem 'font-awesome-rails', '~> 4.3.0.0'
 gem 'leaflet-rails', '~> 0.7.4'
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
