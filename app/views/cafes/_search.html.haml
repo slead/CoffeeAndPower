@@ -1,9 +1,7 @@
 .row
   .col-md-8.col-md-offset-2
-    = form_tag cafes_path, :id => "search_form", :class => "input-group", :method => :get do
-      - btnClear_class = "btn btn-default"
-      = text_field_tag :search, nil, :id => "searchBox", :class => "form-control", :placeholder => "Search is coming soon...", autocomplete: "off"
-      %span.input-group-btn
-        = submit_tag value = "Search", class: "btn btn-warning"
-        = link_to cafes_path, class: btnClear_class do
-          %i.fa.fa-times#cancel_search
+    .row#search_form
+      .input-group
+        %input{:type => "text", :id => "address", :class => "form-control", :placeholder => "Find a cafe in..."}
+        %span.input-group-btn
+          .button{:id => "btnSearch", :class => "btn btn-default", :type => "button", :value => "Search"}

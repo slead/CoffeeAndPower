@@ -47,7 +47,7 @@ ready = function() {
           minZoom: 11,
           layers: [stamen]
         });
-        leafletMap.setMaxBounds(leafletMap.getBounds());
+        leafletMap.setMaxBounds(leafletMap.getBounds().pad(0.05));
 
         // Add the cafe and its neighbours to the map
         jsonLayer = L.geoJson(geojson, {

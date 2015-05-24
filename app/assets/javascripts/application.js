@@ -25,9 +25,30 @@ function pageLoad() {
     })
   }, 4500)
 
-  $('#searchBox').typeahead({
-    name: "Location",
-    remote: "/locations/autocomplete?query=%QUERY"
+  $('#btnSearch').click(function(){
+    addressSearch($("#address").val());
+  });
+
+}
+
+function addressSearch(address) {
+  // Search OpenStreetMap for this location
+  url = 'http://nominatim.openstreetmap.org/search?format=json&city=' + address;
+  $.ajax({
+    url: url,
+    type: 'get',
+    dataType: 'json',
+    success: function(response) {
+      // Zoom the map to the first location found. TODO - display the other matches
+      if(response.length > 0) {
+        lat = response[0].lat;
+        lng = response[0].lon;
+        var latlng = L.latLng(lat, lng);
+        leafletMap.setView(latlng,13);
+      }
+    }, error: function(error) {
+      console.log("error with address search");
+    }
   });
 }
 

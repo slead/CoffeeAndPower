@@ -84,9 +84,7 @@ class CafesController < ApplicationController
       },
       properties: {
         type: "cafe",
-        name: @cafe.name,
-        address: @cafe.address,
-        url: @cafe.slug
+        name: @cafe.name
       }
     }]
 
