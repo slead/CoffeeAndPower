@@ -33,7 +33,10 @@ class CafesController < ApplicationController
           name: cafe.name,
           address: cafe.address,
           url: cafe.slug,
-          description: cafe.description
+          description: cafe.description,
+          likes: cafe.get_likes.size,
+          dislikes: cafe.get_dislikes.size,
+          comment_count: cafe.comments.count
         }
       }
     end

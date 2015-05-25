@@ -118,8 +118,16 @@ ready = function() {
           html += "<div class='col-md-4 cafe_content'>";
           html += "<div class='name'><h2><a href=cafes/" + cafe.url + ">" + cafe.name + "</a></h2></div>";
           html += "<div class='address'><h4>" + cafe.address + "</h4></div>";
+
+          html += "<div id='social' class='clearfix'>";
+          html += "<span><i class='fa fa-comments-o'></i>" + cafe.comment_count + "</span>"
+          html += "<span><i class='fa fa-thumbs-o-up'></i>" + cafe.likes + "</span>"
+          html += "<span><i class='fa fa-thumbs-o-down'></i>" + cafe.dislikes + "</span>"
+          html += "</div>" // social
+
           html += "<div class='summary'><p>" + cafe.description + "</p></div>";
-          html += "</div>";
+
+          html += "</div>"; // cafe_content
           if (idx % 3 == 2) {
             html += "</div>"
           }

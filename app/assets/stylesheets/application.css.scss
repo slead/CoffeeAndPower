@@ -157,8 +157,14 @@ ul {
   }
 
 .cafe_content {
-  .social {
-    text-align: right;
+  min-height: 100px;
+  #social {
+    margin-top: -5px;
+    margin-bottom: 10px;
+    span {
+      margin: 5px;
+      color: #727272;
+    }
   }
 }
 
@@ -192,6 +198,9 @@ p.summary{
   }
   p.user {
     margin-top: 15px;
+  }
+  .cafe_content {
+    min-height: 200px;
   }
 }
 
