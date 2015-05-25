@@ -15,9 +15,9 @@ class CafesController < ApplicationController
     if params[:bbox].present?
       #Find cafes which fall within the current map extent
       bbox = params[:bbox].split(",").map(&:to_f)
-      @cafes = Cafe.within_bounding_box(bbox)
+      @cafes = Cafe.within_bounding_box(bbox).order(:name)
     else
-      @cafes = Cafe.all  
+      @cafes = Cafe.all.order(:name)  
     end
 
     # Make a JSON object from the Cafes, to add to the map
