@@ -33,7 +33,7 @@ function pageLoad() {
 
 function addressSearch(address) {
   // Search OpenStreetMap for this location
-  url = 'http://nominatim.openstreetmap.org/search?format=json&city=' + address;
+  url = 'https://nominatim.openstreetmap.org/search?format=json&city=' + address;
   $.ajax({
     url: url,
     type: 'get',
