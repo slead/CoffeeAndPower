@@ -30,6 +30,7 @@ class CafesController < ApplicationController
         },
         properties: {
           type: "cafe",
+          id: cafe.id,
           name: cafe.name,
           address: cafe.address,
           url: cafe.slug,

@@ -115,7 +115,7 @@ ready = function() {
             html += "<div class='row'>";
           }
           cafe = geojson[idx].properties;
-          html += "<div class='col-md-4 cafe_content'>";
+          html += "<div class='col-md-4 cafe_content' id='" + cafe.id + "''>";
           html += "<div class='name'><h2><a href=cafes/" + cafe.url + ">" + cafe.name + "</a></h2></div>";
           html += "<div class='address'><h4>" + cafe.address + "</h4></div>";
 

@@ -29,6 +29,13 @@ function pageLoad() {
     addressSearch($("#address").val());
   });
 
+  $( "body" ).delegate( ".cafe_content", "mouseover", function() {
+    $(this).addClass("active");
+  });
+
+  $( "body" ).delegate( ".cafe_content", "mouseleave", function() {
+    $(this).removeClass("active");
+  });
 }
 
 function addressSearch(address) {
