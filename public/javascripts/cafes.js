@@ -45,7 +45,8 @@ ready = function() {
           center: [centroid[1], centroid[0]],
           zoom: 12,
           minZoom: 11,
-          layers: [stamen]
+          layers: [stamen],
+          attributionControl: false
         });
         leafletMap.setMaxBounds(leafletMap.getBounds().pad(0.05));
 
