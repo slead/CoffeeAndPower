@@ -78,9 +78,12 @@ html, body {
   margin-bottom: 15px;
 }
 
-.navbar-default .nav li a {
-  color: #727272;
-  cursor: pointer;
+.navbar-default {
+  z-index: 1000;
+ .nav li a {
+    color: #727272;
+    cursor: pointer;
+  }
 }
 
 ul {
