@@ -106,7 +106,9 @@ ready = function() {
             }
           }
         });
-        jsonLayer.addTo(leafletMap);
+        featureGroup = L.featureGroup()
+        featureGroup.addLayer(jsonLayer)
+        featureGroup.addTo(leafletMap);
 
         // Create a new text entry for each cafe
         var html = '';

@@ -29,8 +29,18 @@ function pageLoad() {
     addressSearch($("#address").val());
   });
 
-  $( "body" ).delegate( ".cafe_content", "mouseover", function() {
+  // When hovering over the cafe's text content, open its map infoWindow
+  $( "body" ).delegate( ".cafe_content", "mouseenter", function() {
     $(this).addClass("active");
+    cafeID = this.id
+    jsonLayer.eachLayer(function (layer) {
+      if(cafeID == layer.feature.properties.id) {
+        console.log(cafeID);
+        layer.openPopup()
+      }
+    });
+
+
   });
 
   $( "body" ).delegate( ".cafe_content", "mouseleave", function() {
