@@ -17,7 +17,7 @@ ready = function() {
     leafletMap = new L.Map("map", {
       center: [40.736592006730966, -73.98845672607422],
       zoom: 14,
-      minZoom: 11,
+      minZoom: 12,
       layers: [stamen],
       maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
     });
@@ -118,7 +118,7 @@ ready = function() {
           }
           cafe = geojson[idx].properties;
           html += "<div class='col-md-4 cafe_content' id='" + cafe.id + "''>";
-          html += "<div class='name'><h2><a href=cafes/" + cafe.url + ">" + cafe.name + "</a></h2></div>";
+          html += "<div class='name'><h2><a href=cafes/" + cafe.url + ">" + cafe.name + "<span class='link-spanner'></span></a></h2></div>";
           html += "<div class='address'><h4>" + cafe.address + "</h4></div>";
 
           html += "<div id='social' class='clearfix'>";
