@@ -523,7 +523,7 @@ cafes = Cafe.create!([
 },{
   name:'Corvus Coffee',
   address:'1740 S Broadway Colorado, Denver, CO',
-  description:'Plugs scattered around.  Free Wi-Fi, password not required.',
+  description:'Plugs scattered around.  Free Wi-Fi, Wi-Fi password: southbroadway',
   user_id:1
 },{
   name:'Steam',
